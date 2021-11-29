@@ -18,5 +18,3 @@ export const textStyles = StyleSheet.create({
         marginLeft: 20,
     },
 });
-
-
