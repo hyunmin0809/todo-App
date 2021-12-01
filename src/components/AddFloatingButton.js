@@ -1,40 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet, Animated, TouchableWithoutFeedback } from "react-native";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { View, Animated, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { viewStyles, buttonStyles } from '../styles/FloatingButtonStyles';
+import { theme } from '../theme';
 
 export default class AddFloatingButton extends React.Component {
   render() {
     return (
-      <View style={[styles.container, this.props.style]}>
-        <TouchableWithoutFeedback>
-          <Animated.View style={[styles.button, styles.menu]}>
-            <AntDesign name="plus" size={24} color="#FFF" />
+      <View style={viewStyles.container_right}>
+        <TouchableOpacity onPress={() => {/*this.goAddTodoScreen()*/}}>
+          <Animated.View style={buttonStyles.button_green}>
+            <AntDesign name="plus" size={28} color={theme.white} />
           </Animated.View>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
-    );
-  }
-}
+    );  
+  };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    position: "absolute",
-  },
-  button: {
-    position: "absolute",
-    width: 60,
-    height: 60,
-    borderRadius: 60 / 2,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowRadius: 10,
-    shadowColor: "#314C1C",
-    shadowOpacity: 0.3,
-    shadowOffset: { height: 10 },
-  },
-  menu: {
-    backgroundColor: "#314C1C"
-  }
-});
+  // goAddTodoScreen(){ 
+  //   this.props.navigation.navigate('AddTodo'); 
+  // };
+}
