@@ -1,1 +1,0 @@
-/*밑에 reset과 submit할 버튼*/
