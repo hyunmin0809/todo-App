@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, Pressable} from 'react-native';
-import { textStyles, viewStyle } from './substyle';
+import { textStyles, viewStyle } from '../substyle';
 
 export const Duedate = () => {
     const today = "오늘 날짜 들어갈 예정"

@@ -2,7 +2,7 @@
 import React from "react";
 import {StyleSheet, View} from 'react-native';
 import {AddComment, AddTask} from "./sub/Input"
-import {Duedate, Category, Reminder} from "./sub/Button"
+import {Duedate, Category, Reminder} from './Button';
 import { ResetButton, ExportButton } from "./FinalButton";
 
 

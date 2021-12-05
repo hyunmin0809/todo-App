@@ -1,7 +1,7 @@
 /* add comment랑 add task 함수 제작 */
 import React, { useState } from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
-import { textStyles, viewStyle } from './substyle';
+import { textStyles, viewStyle } from '../substyle';
 
 
 export const AddTask = ({value, onChangeText}) => {

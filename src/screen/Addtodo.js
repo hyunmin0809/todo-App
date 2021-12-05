@@ -1,5 +1,5 @@
 /*항목 생성 screen */
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable} from 'react-native';
 import { footer } from '../Addtodostyle';
 import { AddTask, AddComment } from '../components/Input'
@@ -56,10 +56,21 @@ const ExportButton = ({onPressout}) => {
 }
 
 const Set_item = () => { /*가운데 조작 */
+    const [newTask, setNewTask] = useState('');
+
+    const _onChangeText = text => {
+        setNewTask(text);
+    }
+
+    const _submit = () =>{
+        
+    }
+
+
     return (
       <View style = {[viewStyles.itemsetting]}>
-        <AddTask />
-        
+        <AddTask value = {newTask} onChangeText = {_onChangeText}/>
+        <Text>{newTask}</Text>
         {/* <Duedate/>
         <Reminder/>
         <Category/> */}
