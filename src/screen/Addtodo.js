@@ -1,8 +1,9 @@
 /*항목 생성 screen */
 import React, {useState} from 'react';
-import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable} from 'react-native';
+import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { footer } from '../Addtodostyle';
 import { AddTask, AddComment } from '../components/Input'
+import { Duedate, Reminder } from '../components/Button';
 
 
 class Addtodo extends React.Component{
@@ -30,6 +31,7 @@ class Addtodo extends React.Component{
     }
 }
 
+/*reset, export 아래 버튼 reset은 삭제 가능성 잇음*/
 const ResetButton = () => {
     /*const _reset = () => 값 reset*/
     
@@ -55,8 +57,13 @@ const ExportButton = ({onPressout}) => {
         );
 }
 
-const Set_item = () => { /*가운데 조작 */
-    const [newTask, setNewTask] = useState('');
+/*중간 부분 */
+const Set_item = () => { /* 정리가 너무 안돼서.... 이 부분은 다른 파일로 옮길 가능성 있음*/
+    const [inputs, setInputs] = useState({
+        task: '',
+        comment: ''
+    });
+    const { task, comment } = inputs;
 
     const _onChangeText = text => {
         setNewTask(text);
@@ -68,16 +75,19 @@ const Set_item = () => { /*가운데 조작 */
 
 
     return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style = {[viewStyles.itemsetting]}>
-        <AddTask value = {newTask} onChangeText = {_onChangeText}/>
-        <Text>{newTask}</Text>
-        {/* <Duedate/>
+        <AddTask value = {task} onChangeText = {_onChangeText}/>
+        
+        <Duedate/>
         <Reminder/>
-        <Category/> */}
+
+        {/*<Category/> */}
   
         <AddComment /> 
         
       </View>
+    </TouchableWithoutFeedback>
     );
   };
   

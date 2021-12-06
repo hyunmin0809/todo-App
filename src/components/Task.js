@@ -38,5 +38,3 @@ const itemStyle = StyleSheet.create({
         color: '#595959',
     },
 });
-
-export default Task;
