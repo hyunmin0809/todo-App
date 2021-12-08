@@ -1,13 +1,12 @@
-/*항목 생성에 들어갈 버튼들. 카테고리, 듀데이트, reminder 등등.. */
+/*duedate랑 due time 용 */
 
 import React, {useState} from 'react';
 import {Text, View, Pressable, StyleSheet, Modal, Dimensions} from 'react-native';
 import { textStyles, viewStyle } from '../substyle';
-import { Modalcalender } from './Calender';
 import { Calendar } from 'react-native-calendars';
 import { images } from "../images";
 import { IconButton_direct } from "./IconButton";
-import moment from 'moment';
+
 
 export const Duedate = () => {
     const week = ['SUN','MON', 'TUE','WED','THU','FRI','SAT'];
@@ -78,7 +77,8 @@ export const Duedate = () => {
     );
 };
 
-export const Reminder = () => {
+export const Duetime = () => {
+    const [duetime, setduetime] = useState('');
     return(
         <>
         <View style = {viewStyle.container}>
@@ -86,6 +86,9 @@ export const Reminder = () => {
         </View>
         <View style={[viewStyle.container, viewStyle.subcontainer]}>
             <Box />  
+            <Pressable>
+                <Text style = {textStyles.heading}>{duetime}</Text>
+            </Pressable>
         </View>
         </>
     );

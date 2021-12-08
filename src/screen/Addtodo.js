@@ -1,97 +1,113 @@
 /*항목 생성 screen */
 import React, {useState} from 'react';
-import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import { footer } from '../Addtodostyle';
+import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { AddTask, AddComment } from '../components/Input'
-import { Duedate, Reminder } from '../components/Button';
+import { Duedate} from '../components/Duedate-time';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+function Addtodo({navigation}){
+    
+    const [task, setTask] = useState('')/*task 변수*/
+    const [duedate, setDuedate] = useState('.') /*duedate 변수*/
+    const [duetime, setDuetime] = useState('.') /*duetime 변수*/
+    const [category, setCategory] = useState('.') /*선택한 category 변수*/
+    const [comment, setComment] = useState('')/*comment 변수 */
+    const [picture, setPicture] = useState('.') /*사진 url*/
 
 
-class Addtodo extends React.Component{
-    constructor(props){
-        super(props);
-        this.navgateToScreen = this.navigateToScreen.bind(this);
+    const taskChangetext = text =>{ /*task에 text가 변할때마다 task에 그 값을 넣어줌 */
+        setTask(text);
     }
-    navigateToScreen(screenName){
-        this.props.navigation.navigate(screenName);
-    }
-    render(){
-        return (
-            <SafeAreaView style = {viewStyles.container}>
-                <StatusBar/>
-                <Set_item/>
 
-                <View style = {viewStyles.footer}>
-                    <ResetButton />
-                    <ExportButton onPressout = {() => {this.navigateToScreen('Main')}}/>
+    const commentChangetext = text => { /*comment에 text가 변할때마다 task에 그 값을 넣어줌 */
+        setComment(text);
+    }
+
+
+    const [tasks, setTasks] = useState({}) /*최종으로 넘길 값*/
+    
+    const _loadTasks = async () => { /*시작할때마다 불러올 값. isloading 을 사용할 생각... 지금 상황에서는 이걸 누르고 시작해야 누적*/
+        const loadedTasks = await AsyncStorage.getItem('tasks');
+        setTasks(JSON.parse(loadedTasks || '{}'));
+      }
+
+    const _saveTasks = async tasks => {
+        try{
+            await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+            setTasks(tasks);
+        }catch(e) {
+            console.error(e);
+        }
+    };
+    
+    function PressSubmit() {
+        const ID = Date.now().toString();
+        const newTaskObject = {
+            [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },
+        };
+        _saveTasks({...tasks, ...newTaskObject});
+        navigation.navigate('Main');
+        
+    }
+
+
+    return (
+        <SafeAreaView style = {viewStyles.container}>
+            <StatusBar/>
+            <Button title = '실험용' onPress = {_loadTasks}></Button>
+            {/*여기 부터 center(task, duedate&time, addcomment...) 부분*/}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style = {[viewStyles.itemsetting]}>
+                    <AddTask value = {task} onChangeText = {taskChangetext}/>
+                    
+                    <Duedate/>
+
+                    {/*<Category/> */}
+            
+                    <AddComment value = {comment} onChangeText = {commentChangetext}/> 
+                    
                 </View>
+            </TouchableWithoutFeedback>
+                
+            {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
+            <View style = {viewStyles.footer}>
+                <ResetButton onPressout = {() => {navigation.push('Addtodo')}}/>
+                <ExportButton onPressout = {PressSubmit}/>
+            </View>
 
-            </SafeAreaView>
+        </SafeAreaView>
 
-        );
-    }
+    );
 }
 
 /*reset, export 아래 버튼 reset은 삭제 가능성 잇음*/
-const ResetButton = () => {
+const ResetButton = ({onPressout}) => {
     /*const _reset = () => 값 reset*/
     
     return(
         <Pressable 
-        style = {[footer.pressable, { backgroundColor: '#C4C4C4'}]}
-        
-        >
-        <Text style = {footer.text}> reset </Text>
+            style = {[footer.pressable, { backgroundColor: '#C4C4C4'}]}
+            onPressOut = {onPressout}>
+            <Text style = {footer.text}> reset </Text>
         </Pressable>
     );
 };
 
 const ExportButton = ({onPressout}) => {
     /*const _import = () => 메인화면으로 이동, 값 전달*/ 
+    
         return(
             <Pressable 
-            style = {[{ backgroundColor: '#00462A' }, footer.pressable]}
-            onPressOut = {onPressout}
-            >
-            <Text style = {footer.text}> confirmed </Text>
+                style = {[{ backgroundColor: '#00462A' }, footer.pressable]}
+                onPressOut = {onPressout}>
+                <Text style = {footer.text}> submit </Text>
             </Pressable>
         );
 }
 
 /*중간 부분 */
-const Set_item = () => { /* 정리가 너무 안돼서.... 이 부분은 다른 파일로 옮길 가능성 있음*/
-    const [inputs, setInputs] = useState({
-        task: '',
-        comment: ''
-    });
-    const { task, comment } = inputs;
-
-    const _onChangeText = text => {
-        setNewTask(text);
-    }
-
-    const _submit = () =>{
-        
-    }
-
-
-    return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style = {[viewStyles.itemsetting]}>
-        <AddTask value = {task} onChangeText = {_onChangeText}/>
-        
-        <Duedate/>
-        <Reminder/>
-
-        {/*<Category/> */}
   
-        <AddComment /> 
-        
-      </View>
-    </TouchableWithoutFeedback>
-    );
-  };
-  
-  const viewStyles = StyleSheet.create({
+const viewStyles = StyleSheet.create({ /*가장 큰 메인이 되는 컨테이너*/
     container: { /*전체용 이 안에 itemsetting이랑 footer가 구성*/
         flex: 1,
         backgroundColor: '#fff',
@@ -99,7 +115,6 @@ const Set_item = () => { /* 정리가 너무 안돼서.... 이 부분은 다른 
     },
     itemsetting: { /*항목생성 설정 (input~map까지)칸*/
         height: '90%',
-        backgroundColor: '#fff',
         alignItems: 'center',
     },
     footer: { /*맨 아래 버튼 2개*/
@@ -109,7 +124,18 @@ const Set_item = () => { /* 정리가 너무 안돼서.... 이 부분은 다른 
     }
 });
 
-
+const footer = StyleSheet.create({ /*항목생성 화면 아래의 버튼 두개용 text랑 align 신경씀 */
+    text: {
+        color: 'white',
+        fontSize: 25,
+    },
+    pressable: {
+        height: '100%', 
+        width: '50%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
    
 
 export default Addtodo;

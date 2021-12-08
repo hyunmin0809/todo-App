@@ -14,7 +14,7 @@ export const AddTask = ({value, onChangeText}) => {
             maxLength={20}
             autoCapitalize= 'none'
             autoCorrect= {false}
-            value = {value} onChangeText={onChangeText}
+            value = {value} onChangeText={onChangeText} 
             >
         </TextInput>
         </View>
