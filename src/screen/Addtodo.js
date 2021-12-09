@@ -1,5 +1,5 @@
 /*항목 생성 screen */
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { AddTask, AddComment } from '../components/Input'
 import { Duedate} from '../components/Duedate-time';
@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function Addtodo({navigation}){
     
     const [task, setTask] = useState('')/*task 변수*/
-    const [duedate, setDuedate] = useState('.') /*duedate 변수*/
+    const [duedate, setDuedate] = useState('2021-12-20') /*duedate 변수*/
     const [duetime, setDuetime] = useState('.') /*duetime 변수*/
     const [category, setCategory] = useState('.') /*선택한 category 변수*/
     const [comment, setComment] = useState('')/*comment 변수 */
@@ -26,10 +26,20 @@ function Addtodo({navigation}){
 
     const [tasks, setTasks] = useState({}) /*최종으로 넘길 값*/
     
-    const _loadTasks = async () => { /*시작할때마다 불러올 값. isloading 을 사용할 생각... 지금 상황에서는 이걸 누르고 시작해야 누적*/
-        const loadedTasks = await AsyncStorage.getItem('tasks');
-        setTasks(JSON.parse(loadedTasks || '{}'));
-      }
+    useEffect(() => {
+        const firstLoad = async () => {
+          try {
+            const loadedTasks = await AsyncStorage.getItem('tasks');
+            setTasks(JSON.parse(loadedTasks || '{}'));
+          } catch (err) {
+            console.log(err);
+          }
+        };
+      
+    
+        firstLoad();
+      }, []);
+    
 
     const _saveTasks = async tasks => {
         try{
@@ -54,7 +64,6 @@ function Addtodo({navigation}){
     return (
         <SafeAreaView style = {viewStyles.container}>
             <StatusBar/>
-            <Button title = '실험용' onPress = {_loadTasks}></Button>
             {/*여기 부터 center(task, duedate&time, addcomment...) 부분*/}
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style = {[viewStyles.itemsetting]}>

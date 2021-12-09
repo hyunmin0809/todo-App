@@ -42,7 +42,7 @@ export const Duedate = () => {
                           }}
                         onDayPress={(day) => setduedate(day.dateString)}
                         markedDates= {{
-                            duedate :  {marked: true,  backgroundColor: 'green'},
+                            duedate :  {marked: true},
                         }}
                     />
                     {/*<Modalcalender setduedate = {setduedate} />*/}
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     modalView: {
       marginTop: 200,
       marginHorizontal: 20,
-      backgroundColor: "white",
+      backgroundColor: "#fff",
       padding: 35,
       shadowColor: "#000",
       shadowOffset: {
