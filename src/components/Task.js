@@ -1,36 +1,21 @@
 /*메인 스크린에 띄울 task list */
 import React, {useState} from "react";
-import { StyleSheet, View, Text, ScrollView} from "react-native";
+import { StyleSheet, View, Text} from "react-native";
 import { IconButton } from "./IconButton";
 import { images } from "../images";
 
-export const Task = ({tasks}) => {
-    /*if(tasks.task === undefined) {
-        return(
-            <Text>add your todo item!</Text>
-        )
-    }
-    else{*/
-        
-        
-        return (
-            <ScrollView width = '100%'>
-                {Object.values(tasks).reverse().map(item => ( 
-                    <TaskTemplate key = {item.id} task={item.task} duedate={item.duedate} duetime={item.duetime} />
-                ))} 
-            </ScrollView>
-        )
-}
 
-const TaskTemplate = ({task, duedate, duetime, isComplete}) =>{
+
+export const Task = ({item, toggleTask}) =>{
     return(
         <View style = {itemStyle.container}>
-                <IconButton style = {{flex: 1}} type = {images.uncompleted} />
+                <IconButton style = {[{flex: 1}]} type = {item.completed ? images.completed : images.uncompleted} 
+                    id = {item.id} onPressOut={toggleTask}/>
                 <View style = {[itemStyle.contents, {flex: 5}]}>
-                    <Text style = {itemStyle.taskfont}>{task}</Text>
+                    <Text style = {itemStyle.taskfont}>{item.task}</Text>
                     <View style = {{flexDirection: 'row'}}>
-                        <Text style = {itemStyle.datefont}>{duedate}</Text>
-                        <Text style = {itemStyle.datefont}>  {duetime}</Text>
+                        <Text style = {itemStyle.datefont}>{item.duedate}</Text>
+                        <Text style = {itemStyle.datefont}>  {item.duetime}</Text>
                     </View>
                 </View>
                 <IconButton style = {{flex: 1}} type = {images.menu} />

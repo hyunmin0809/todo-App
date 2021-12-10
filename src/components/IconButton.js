@@ -17,9 +17,13 @@ const IconStyle = StyleSheet.create({
 
 });
 
-export const IconButton = ({type}) => {
+export const IconButton = ({type, onPressOut, id}) => {
+    const _onPressOut = () => {
+        onPressOut(id);
+    }
+
     return(
-        <Pressable>
+        <Pressable onPressOut={_onPressOut}>
             <Image source={type} style={IconStyle.icon}/>
         </Pressable>
 )}
@@ -30,3 +34,6 @@ export const IconButton_direct = ({type}) => {
             <Image source={type} style={IconStyle.direction}/>
         </Pressable>
 )}
+IconButton.defaultProps = {
+    onPressOut: () => {},
+};
