@@ -60,7 +60,7 @@ function Main({navigation}) {
     _saveTasks(currentTasks);
   }
 
-  function _isemptytask(){
+  function AllTasks(){
     if(isEmpty === false){return (
       <ScrollView width = '100%'>
         {Object.values(taskInfo).reverse().map(item => ( 
@@ -70,14 +70,26 @@ function Main({navigation}) {
     )}
     else {return(null)}
   }
-  
+  function DefaultTasks() {
+    let today = new Date();
+    today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
+    const sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );
+    if(isEmpty === false){return (
+      <ScrollView width = '100%'>
+        {Object.values(sorted).reverse().map(item => ( 
+            <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>
+        ))} 
+      </ScrollView>
+    )}
+    else {return(null)}
+  }
 
   return (
     <View>
       <Button
         title="+"
         onPress={()=>navigation.navigate('Addtodo')}/>
-      <_isemptytask/>
+      <DefaultTasks/>
     </View>
   );
     
