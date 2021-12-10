@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
+import { Button, Image, View, Platform, Pressable, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { textStyles, viewStyle } from '../substyle';
 
 
-
-export function GalleryPicker() {
-  const [image, setImage] = useState(null);
-  const [uri, setUri] = useState('');
+export const GalleryPicker = (props) => {
+  const image = props.picture;
+  const setImage = props.setPicture;
 
   useEffect(() => {
     (async () => {
@@ -26,8 +26,6 @@ export function GalleryPicker() {
       aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
     
     if (!result.cancelled) {
       setImage(result.uri);
@@ -35,13 +33,21 @@ export function GalleryPicker() {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-    </View>
+    <><View style={viewStyle.container}>
+      <Text style={[textStyles.heading, { flexDirection: "row" }]}>Picture</Text>
+    </View><View style={[viewStyle.container, viewStyle.subcontainer]}>
+        <Pressable
+          style={[viewStyle.button, { height: 30, width: '60%' }]}
+          onPress={pickImage}
+        >
+        <Text style = {textStyles.heading}>Gallery</Text>
+        </Pressable>
+      </View></>
   );
 }
 
+
+/* 이거 그냥... 말그대로 카메라만 켜짐...ㅋ.ㅋ..ㅋ....
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
@@ -106,4 +112,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
   },
-});
+});*/

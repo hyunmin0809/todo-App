@@ -37,6 +37,8 @@ function Main({navigation}) {
             setUserInfo(JSON.parse(loadedTasks || '{}'));
             if(!loadedTasks){setIsEmpty(true)}
             else{console.log(setIsEmpty(false))}
+            console.log(userInfo)
+            AsyncStorage.clear()
         }
           firstLoad();
     }

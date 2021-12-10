@@ -2,7 +2,9 @@
 import React, {useState, useEffect} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { AddTask, AddComment } from '../components/Input'
-import { Duedate_time } from '../components/Duedate-time';
+import { Duedate_time } from '../components/Duedate-time'
+import { GalleryPicker} from '../components/Picture'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
@@ -85,7 +87,7 @@ function Addtodo({navigation}){
                     {/*<Category/> */}
             
                     <AddComment value = {comment} onChangeText = {commentChangetext}/> 
-                    
+                    <GalleryPicker picture = {picture} setPicture = {setPicture}/>
                 </View>
             </TouchableWithoutFeedback>
                 

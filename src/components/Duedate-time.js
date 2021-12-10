@@ -34,7 +34,7 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
     return(
         <>
 
-            <View style={viewStyle.container}>{/**/}
+            <View style={viewStyle.container}>
                 <Text style={[textStyles.heading, {flexDirection:"row"}]}>Due date and Due time</Text>
             </View>
 
