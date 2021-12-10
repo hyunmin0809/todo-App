@@ -19,6 +19,8 @@ export const viewStyle = StyleSheet.create({
         marginLeft: 8 ,
         backgroundColor: "#E8E8E8",
         alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 3,
     },
 });
 

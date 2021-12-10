@@ -1,6 +1,6 @@
 /*메인화면*/
-import React, {useState} from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, {useState, useEffect} from 'react';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import {View, Text, Button} from 'react-native';
 import { images } from '../images';
 import { IconButton } from '../components/IconButton';
@@ -11,12 +11,13 @@ function Main({navigation}) {
 
   const [userInfo, setUserInfo] = useState({});
   const [isEmpty, setIsEmpty] = useState(true);
-
-  useFocusEffect( //네비게이션 넘어올때, 시작할때마다 실행!
+  const isFocused = useIsFocused();
+  /*useFocusEffect( //네비게이션 넘어올때, 시작할때마다 실행!
     React.useCallback(()=>{
       const firstLoad = async () => {
           const loadedTasks = await AsyncStorage.getItem('tasks');
           setUserInfo(JSON.parse(loadedTasks || '{}'));
+          console.log(userInfo)
           if(!loadedTasks){setIsEmpty(true)}
           else{console.log(setIsEmpty(false))}
       }
@@ -25,7 +26,22 @@ function Main({navigation}) {
       return () => {
       }
     }, [])
-  );
+  );*/
+
+  
+  useEffect(() => {
+    
+    if (isFocused) {
+        const firstLoad = async () => {
+            const loadedTasks = await AsyncStorage.getItem('tasks');
+            setUserInfo(JSON.parse(loadedTasks || '{}'));
+            if(!loadedTasks){setIsEmpty(true)}
+            else{console.log(setIsEmpty(false))}
+        }
+          firstLoad();
+    }
+      
+  }, [isFocused]);
       
  
 

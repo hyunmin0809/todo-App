@@ -3,96 +3,71 @@
 import React, {useState} from 'react';
 import {Text, View, Pressable, StyleSheet, Modal, Dimensions} from 'react-native';
 import { textStyles, viewStyle } from '../substyle';
-import { Calendar } from 'react-native-calendars';
-import { images } from "../images";
-import { IconButton_direct } from "./IconButton";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-
-export const Duedate = () => {
-    const week = ['SUN','MON', 'TUE','WED','THU','FRI','SAT'];
-    let today = new Date();
-    let today_with_week = week[today.getDay()];
-    today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0');
-    today_with_week = today +" "+ today_with_week;
+export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
+    const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+    const [date, setDate] = useState(new Date(Date.now()));
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
     
+    const onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
 
-    const [duedate, setduedate] = useState(today);
-    const [modalVisible, setModalVisible] = useState(false);
+        let tempDate = new Date(currentDate);
+        let fDate = tempDate.getFullYear()+ "-" + parseInt(tempDate.getMonth()+1)+"-"+tempDate.getDate().toString().padStart(2,'0')+" "+weekday[tempDate.getDay()];
+        let fTime = tempDate.getHours().toString().padStart(2,'0') + ":"+ tempDate.getMinutes().toString().padStart(2,'0');
+        
+        getData1(fDate)
+        getData2(fTime)
+    };
+
+    const showMode = (currentMode) => {
+        setShow(true);
+        setMode(currentMode);
+      };
+    
+      
     
     return(
         <>
-        
-        <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-        >
-            <View style = {styles.modalView}>
-                <View>
-                    <Calendar /*여기서 클릭한 부분이 색칠이 안되는데 아무래도 class 안에다 사용해야할 것 같다. calender.js 파일로 옮겨 짤 생각 */
-                        renderArrow={(direction) => {
-                            if (direction == "right")
-                              return (
-                                <View><IconButton_direct type = {images.left} /></View>
-                              );
-                            if (direction == "left")
-                              return (
-                                <View><IconButton_direct type = {images.right} /></View>
-                              );
-                          }}
-                        onDayPress={(day) => setduedate(day.dateString)}
-                        markedDates= {{
-                            duedate :  {marked: true},
-                        }}
-                    />
-                    {/*<Modalcalender setduedate = {setduedate} />*/}
-                </View>
-                <View>
-                    <Pressable
-                        onPressOut = {() => {setModalVisible(!modalVisible);}}
-                    >
 
-                    <Text style = {textStyles.heading}>done</Text>
-                    </Pressable>
-                </View>
+            <View style={viewStyle.container}>{/**/}
+                <Text style={[textStyles.heading, {flexDirection:"row"}]}>Due date and Due time</Text>
             </View>
-        </Modal>
 
-        <View style={viewStyle.container}>
-            <Text style={[textStyles.heading, {flexDirection:"row"}]}>Due date</Text>
-        </View>
-        <View style={[viewStyle.container, viewStyle.subcontainer]}>
-            <Box />
-            <Pressable 
-                style = {[viewStyle.button, {width: '90%'}]}
-                onPress={() => setModalVisible(true)}
-            >
-                <Text style = {textStyles.heading}>{duedate}</Text>
-            </Pressable>  
-        </View>
-        
+            <View style={[viewStyle.container, viewStyle.subcontainer]}>
+                <Box />
+                <Pressable 
+                    style = {[viewStyle.button, {height:30, width: '60%'}]}
+                    onPress={() => showMode('date')}
+                >
+                    <Text style = {textStyles.heading}>{data1}</Text>
+                </Pressable>  
+                <Pressable 
+                    style = {[viewStyle.button, {height:30, width: '28%'}]}
+                    onPress={() => showMode('time')}
+                >
+                    <Text style = {textStyles.heading}>{data2}</Text>
+                </Pressable>  
+            </View>
+            {show && (
+                <DateTimePicker
+                test ID = 'dateTimePicker'
+                value = {date}
+                mode = {mode}
+                is24Hour={true}
+                onChange={onChange}
+                />
+            )}
         </>
   
         
     );
 };
 
-export const Duetime = () => {
-    const [duetime, setduetime] = useState('');
-    return(
-        <>
-        <View style = {viewStyle.container}>
-            <Text style ={textStyles.heading}>Reminder</Text>
-        </View>
-        <View style={[viewStyle.container, viewStyle.subcontainer]}>
-            <Box />  
-            <Pressable>
-                <Text style = {textStyles.heading}>{duetime}</Text>
-            </Pressable>
-        </View>
-        </>
-    );
-};
 
 export const Category = () => {
     return(
@@ -104,7 +79,7 @@ export const Category = () => {
 
 const Box = () => {
     return(
-        <View style = {[viewStyle.button, {height: 20, width: 20, marginLeft: 0}]}></View>
+        <View style = {[viewStyle.button, {height: 30, width: 30, marginLeft: 0}]}></View>
     );
 };
 
@@ -114,19 +89,5 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       marginTop: 22
-    },
-    modalView: {
-      marginTop: 200,
-      marginHorizontal: 20,
-      backgroundColor: "#fff",
-      padding: 35,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
     },
 });

@@ -2,18 +2,29 @@
 import React, {useState, useEffect} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { AddTask, AddComment } from '../components/Input'
-import { Duedate} from '../components/Duedate-time';
+import { Duedate_time } from '../components/Duedate-time';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+
 function Addtodo({navigation}){
-    
+    const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+    let today = new Date();
+    today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0') +" "+weekday[today.getDay()];
+
     const [task, setTask] = useState('')/*task 변수*/
-    const [duedate, setDuedate] = useState('2021-12-20') /*duedate 변수*/
-    const [duetime, setDuetime] = useState('.') /*duetime 변수*/
+    const [duedate, setDuedate] = useState(today) /*duedate 변수*/
+    const [duetime, setDuetime] = useState('08:00') /*duetime 변수*/
     const [category, setCategory] = useState('.') /*선택한 category 변수*/
     const [comment, setComment] = useState('')/*comment 변수 */
     const [picture, setPicture] = useState('.') /*사진 url*/
 
+    const getData1 = (data1) => { /*dudate, time 값 자식에게서 가져오기 */
+        setDuedate(data1);
+    }
+
+    const getData2 = (data2) => {
+        setDuetime(data2);
+    }
 
     const taskChangetext = text =>{ /*task에 text가 변할때마다 task에 그 값을 넣어줌 */
         setTask(text);
@@ -69,7 +80,7 @@ function Addtodo({navigation}){
                 <View style = {[viewStyles.itemsetting]}>
                     <AddTask value = {task} onChangeText = {taskChangetext}/>
                     
-                    <Duedate/>
+                    <Duedate_time data1={duedate} data2={duetime} getData1={getData1} getData2={getData2}/>
 
                     {/*<Category/> */}
             
