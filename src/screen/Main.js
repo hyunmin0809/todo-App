@@ -27,13 +27,18 @@ function Main({navigation}) {
       }
     }, [])
   );*/
-  
+
+  let today = new Date();
+  today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
+  let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음*/
+
   useEffect(() => {
     
     if (isFocused) {
         const firstLoad = async () => {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTaskInfo(JSON.parse(loadedTasks || '{}'));
+            sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );
             if(!loadedTasks){setIsEmpty(true)}
             else{console.log(setIsEmpty(false))}
             AsyncStorage.clear
@@ -64,9 +69,6 @@ function Main({navigation}) {
 
 
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
-    let today = new Date();
-    today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
-    const sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );
     if(isEmpty === false){return (
         <FlatList 
           data = {Object.values(sorted)}
@@ -81,6 +83,9 @@ function Main({navigation}) {
       <Button
         title="+"
         onPress={()=>navigation.navigate('Addtodo')}/>
+      <Button
+        title="다 삭제하기"
+        onPress={()=> AsyncStorage.clear()}/>
       <DefaultTasks/>
     </View>
   );
