@@ -1,17 +1,15 @@
-// 'src/styles.js' from branch 'DAYOON0836'
-
 import { StyleSheet } from "react-native";
-import {theme} from './theme';
+import { theme } from '../theme';
 
 export const viewStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.background,
+    backgroundColor: theme.white,
     alignItems: 'center',
   },
   container2: {
     flex: 1,
-    backgroundColor: theme.background,
+    backgroundColor: theme.white,
     alignItems: 'center',
   },
   item1: {
@@ -37,7 +35,7 @@ export const textStyles = StyleSheet.create({
   title: {
     fontSize: 33,
     fontWeight: 'bold',
-    color: theme.main,
+    color: theme.ewhagreen,
     alignItems: 'flex-start',
     marginTop: -5,
   },
@@ -45,18 +43,18 @@ export const textStyles = StyleSheet.create({
     marginTop: 70,
     fontSize: 25,
     fontWeight: 'bold',
-    color: theme.main,
+    color: theme.ewhagreen,
   },
   title3: {
     marginTop: 40,
     fontSize: 25,
     fontWeight: 'bold',
-    color: theme.main,
+    color: theme.ewhagreen,
   },
   quote: {
     fontSize: 18,
     fontWeight: '600',
-    color: theme.main,
+    color: theme.ewhagreen,
     marginLeft: 10,
   },
   author: {
@@ -70,7 +68,7 @@ export const textStyles = StyleSheet.create({
   todo: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: theme.main,
+    color: theme.ewhagreen,
     marginRight: 45
   },
   duedate: {
