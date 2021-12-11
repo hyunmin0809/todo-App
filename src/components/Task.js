@@ -2,6 +2,7 @@
 import React, {useState} from "react";
 import { StyleSheet, View, Text, Pressable, Alert, Modal, TouchableWithoutFeedback } from "react-native";
 import { IconButton } from "./IconButton";
+import { ModalButton } from "./ModalBtn";
 import { images } from "../images";
 import { ThemeColors } from "react-navigation";
 
@@ -62,7 +63,7 @@ export const Task = ({item, toggleTask}) =>{
                             <Text style = {itemStyle.datefont}>  {item.duetime}</Text>
                         </View>
                     </View>
-                    <IconButton type = {images.menu} />
+                    <ModalButton type = {images.menu} />
                 </View>
             </Pressable>
         </View>
