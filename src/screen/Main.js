@@ -1,7 +1,7 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import {View, Text, Button, ScrollView, Pressable} from 'react-native';
+import {View, Text, Button, ScrollView, Pressable, FlatList} from 'react-native';
 import { images } from '../images';
 import { IconButton } from '../components/IconButton';
 import { Task } from '../components/Task';
@@ -27,7 +27,6 @@ function Main({navigation}) {
       }
     }, [])
   );*/
-
   
   useEffect(() => {
     
@@ -37,6 +36,7 @@ function Main({navigation}) {
             setTaskInfo(JSON.parse(loadedTasks || '{}'));
             if(!loadedTasks){setIsEmpty(true)}
             else{console.log(setIsEmpty(false))}
+            AsyncStorage.clear
             console.log(taskInfo)
         }
           firstLoad();
@@ -44,6 +44,8 @@ function Main({navigation}) {
       
   }, [isFocused]);
       
+  
+
   const _saveTasks = async tasks => {
       try{
           await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
@@ -60,26 +62,16 @@ function Main({navigation}) {
     _saveTasks(currentTasks);
   }
 
-  function AllTasks(){
-    if(isEmpty === false){return (
-      <ScrollView width = '100%'>
-        {Object.values(taskInfo).reverse().map(item => ( 
-            <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>
-        ))} 
-      </ScrollView>
-    )}
-    else {return(null)}
-  }
-  function DefaultTasks() {
+
+  function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     let today = new Date();
     today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
     const sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );
     if(isEmpty === false){return (
-      <ScrollView width = '100%'>
-        {Object.values(sorted).reverse().map(item => ( 
-            <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>
-        ))} 
-      </ScrollView>
+        <FlatList 
+          data = {Object.values(sorted)}
+          renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
+        />
     )}
     else {return(null)}
   }
