@@ -7,7 +7,7 @@ import { Alert, Modal, StyleSheet, Text, Pressable, View, TouchableWithoutFeedba
 
 import IconButton from './IconButton';
 import {images} from '../images';
-// import Iconimg from "./Iconimg";
+import Iconimg from "./Iconimg";
 
 const Container = styled.View`
     flex-direction: row;
@@ -45,56 +45,56 @@ const Task = ({text, date}) => {
 
     return (
         <View style={styles.centeredView}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onBackdropPress={() => this.closeModal()}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <TouchableWithoutFeedback
-          onPress={() => setModalVisible(!modalVisible)}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Title</Text>
-            <Text style={styles.modalsubText}>Date</Text>
-            <Text style={styles.modalsubText}>Category</Text>
-            <Text style={styles.modalsubText}>Assignment Due</Text>
-            <Pressable
-              style={[styles.button, styles.buttonFunction]}
-              onPress={() => setModalVisible(!modalVisible)}
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onBackdropPress={() => this.closeModal()}
+                onRequestClose={() => {
+                Alert.alert("Modal has been closed.");
+                setModalVisible(!modalVisible);
+                }}
             >
-              <Text style={styles.btntextStyle}>Picture</Text>
-            </Pressable>
+                <TouchableWithoutFeedback
+                onPress={() => setModalVisible(!modalVisible)}>
+                <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalText}>Title</Text>
+                    <Text style={styles.modalsubText}>Date</Text>
+                    <Text style={styles.modalsubText}>Category</Text>
+                    <Text style={styles.modalsubText}>Assignment Due</Text>
+                    <Pressable
+                    style={[styles.button, styles.buttonFunction]}
+                    onPress={() => setModalVisible(!modalVisible)}
+                    >
+                    <Text style={styles.btntextStyle}>Picture</Text>
+                    </Pressable>
+                    <Pressable
+                    style={[styles.button, styles.buttonFunction]}
+                    onPress={() => setModalVisible(!modalVisible)}
+                    >
+                    <Text style={styles.btntextStyle}>Location</Text>
+                    </Pressable>
+                </View>
+                </View>
+                </TouchableWithoutFeedback>
+            </Modal>
             <Pressable
-              style={[styles.button, styles.buttonFunction]}
-              onPress={() => setModalVisible(!modalVisible)}
+                style={[styles.icon, styles.buttonOpen]}
+                onPress={() => setModalVisible(true)}
             >
-              <Text style={styles.btntextStyle}>Location</Text>
+                <Container>
+                        <IconButton type={images.uncompleted}/>
+                        <InnerContainer>
+                            <Contents>{text}</Contents>
+                            <Date>{date}</Date>
+                        </InnerContainer>
+                        <ModalContainer>
+                            <Modalbtn />
+                        </ModalContainer>
+                </Container>
             </Pressable>
-          </View>
         </View>
-        </TouchableWithoutFeedback>
-      </Modal>
-      <Pressable
-        style={[styles.icon, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}
-      >
-      <Container>
-            <IconButton type={images.uncompleted}/>
-            <InnerContainer>
-                <Contents>{text}</Contents>
-                <Date>{date}</Date>
-            </InnerContainer>
-            <ModalContainer>
-                <Modalbtn />
-            </ModalContainer>
-      </Container>
-      </Pressable>
-    </View>
     );
 };
 
