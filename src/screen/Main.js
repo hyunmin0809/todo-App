@@ -2,11 +2,8 @@
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import {View, Text, Button, ScrollView, Pressable, FlatList} from 'react-native';
-// import { images } from '../images';
-// import { IconButton } from '../components/IconButton';
 import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import PopupTask from '../components/PopupTask';
 
 function Main({navigation}) {
 
@@ -76,7 +73,6 @@ function Main({navigation}) {
             data = {Object.values(sorted)}
             renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
           />
-          <Text>temp</Text>
         </>
     )}
     else {return(null)}
