@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-
 import { theme } from '../theme';
+
+import AddFloatingButton from '../components/AddFloatingButton';
 
 const Category = () => {
   return (
     <View style = { styles.container }>
       <Text>Category Screen</Text>
+      <AddFloatingButton />
     </View>
   );
 }

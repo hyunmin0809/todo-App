@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { DrawerContentScrollView } from '@react-navigation/drawer';
-import { Avatar, Title, Caption } from 'react-native-paper';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 
 export function DrawerContent(props) {
     return (
@@ -22,6 +22,24 @@ export function DrawerContent(props) {
                             </View>
                         </View>
                     </View> 
+                    <Drawer.Section style={styles.drawerSection}>
+                            <DrawerItem
+                                label="To-do list"
+                                onPress={() => {props.navigation.navigate("To-do List")}}
+                            />
+                            <DrawerItem
+                                label="Category"
+                                onPress={() => {props.navigation.navigate("Category")}}
+                            />
+                            <DrawerItem
+                                label="Report"
+                                onPress={() => {props.navigation.navigate("Report")}}
+                            />
+                            <DrawerItem
+                                label="Random"
+                                onPress={() => {props.navigation.navigate("Random")}}
+                            />
+                    </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
         </View>
@@ -46,5 +64,8 @@ const styles = StyleSheet.create({
     caption: {
       fontSize: 14,
       lineHeight: 14,
+    },
+    drawerSection: {
+      paddingLeft: 5,
     },
 });
