@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { Avatar, Title, Caption, Drawer } from 'react-native-paper';
 
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+
 export function DrawerContent(props) {
     return (
         <View style = {{flex:1}}>
@@ -23,22 +25,50 @@ export function DrawerContent(props) {
                         </View>
                     </View> 
                     <Drawer.Section style={styles.drawerSection}>
-                            <DrawerItem
-                                label="To-do list"
-                                onPress={() => {props.navigation.navigate("To-do List")}}
-                            />
-                            <DrawerItem
-                                label="Category"
-                                onPress={() => {props.navigation.navigate("Category")}}
-                            />
-                            <DrawerItem
-                                label="Report"
-                                onPress={() => {props.navigation.navigate("Report")}}
-                            />
-                            <DrawerItem
-                                label="Random"
-                                onPress={() => {props.navigation.navigate("Random")}}
-                            />
+                        <DrawerItem
+                            icon={({color, size}) => (
+                                <MaterialCommunityIcons 
+                                    name="text-box-check-outline" 
+                                    size={28}
+                                    color={color}
+                                />
+                            )}
+                            label="To-do list"
+                            onPress={() => {props.navigation.navigate("To-do List")}}
+                        />
+                        <DrawerItem
+                            icon={({color, size}) => (
+                                <MaterialIcons 
+                                    name="category" 
+                                    size={28}
+                                    color={color} 
+                                />
+                            )}
+                            label="Category"
+                            onPress={() => {props.navigation.navigate("Category")}}
+                        />
+                        <DrawerItem
+                            icon={({color, size}) => (
+                                <MaterialCommunityIcons 
+                                    name="poll-box-outline" 
+                                    size={28}
+                                    color={color} 
+                                />
+                            )}
+                            label="Report"
+                            onPress={() => {props.navigation.navigate("Report")}}
+                        />
+                        <DrawerItem
+                            icon={({color, size}) => (
+                                <MaterialCommunityIcons 
+                                    name="dice-3-outline" 
+                                    size={28}  
+                                    color={color} 
+                                />
+                            )}
+                            label="Random"
+                            onPress={() => {props.navigation.navigate("Random")}}
+                        />
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
