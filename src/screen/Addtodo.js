@@ -19,6 +19,7 @@ function Addtodo({navigation}){
     const [category, setCategory] = useState('.') /*선택한 category 변수*/
     const [comment, setComment] = useState('')/*comment 변수 */
     const [picture, setPicture] = useState('.') /*사진 url*/
+    const [loading, setLoading] = useState(false);
 
     const getData1 = (data1) => { /*dudate, time 값 자식에게서 가져오기 */
         setDuedate(data1);
@@ -48,9 +49,8 @@ function Addtodo({navigation}){
             console.log(err);
           }
         };
-      
-    
         firstLoad();
+        return () => setLoading(false);
       }, []);
     
 
@@ -69,8 +69,8 @@ function Addtodo({navigation}){
             [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },
         };
         _saveTasks({...tasks, ...newTaskObject});
+        setLoading(true);
         navigation.navigate('Main');
-        
     }
 
 
