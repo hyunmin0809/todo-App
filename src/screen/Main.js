@@ -106,40 +106,25 @@ const _SdeleteTask = () => {
 
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
-      if(taskview === 'all'){
-        return (
-          <>
-            <FlatList 
-              data = {Object.values(sorted)}
-              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
-            />
-          </>
-        )
+      let listview = sorted
+      if(taskview === 'completed'){
+        listview = Object.values(sorted).filter(task => task.completed === true );
       }
-      else if(taskview === 'completed'){
-        let viewCompleted = Object.values(taskInfo).filter(task => task.completed === true );
-        return (
-          <>
-            <FlatList 
-              data = {Object.values(viewCompleted)}
-              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
-            />
-          </>
-        )
-      }
-
       else if(taskview === 'incompleted'){
-        let viewIncompleted = Object.values(taskInfo).filter(task => task.completed === false );
-        return (
-          <>
-            <FlatList 
-              data = {Object.values(viewIncompleted)}
-              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
-            />
-          </>
-        )
+        listview = Object.values(sorted).filter(task => task.completed === false );
       }
-    }
+      
+      return (
+        <Pressable onPress={deSelectItems}>
+          <FlatList 
+            data = {Object.values(listview)}
+            renderItem={({item}) => (
+            <Task key = {item.id} item = {item} deleteTask = {_deleteTask} toggleTask = {_toggleTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} /> 
+            )}
+            keyExtractor={item => item.id}
+          />
+        </Pressable>
+    )}
     else {return(null)}
   }
 
@@ -148,8 +133,6 @@ const _SdeleteTask = () => {
       <Button
         title="+"
         onPress={()=>navigation.navigate('Addtodo')}/>
-<<<<<<< HEAD
-=======
       <Button
         title="삭제하기" //select task 제거
         onPress={_SdeleteTask}/>
@@ -159,7 +142,6 @@ const _SdeleteTask = () => {
       <Button
         title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
         onPress={_selectAllItems} />
->>>>>>> 4e96e6bc48f7b811dcf734a4e181b760c8308a47
       <DefaultTasks/>
     </View>
   );
