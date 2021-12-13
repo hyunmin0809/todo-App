@@ -1,12 +1,12 @@
 /*메인 스크린에 띄울 task list */
 import React, {useState} from "react";
-import { StyleSheet, View, Text, Pressable, Alert, Modal, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, View, Text, Pressable, Alert, Modal, TouchableWithoutFeedback, TouchableOpacity} from "react-native";
 import { IconButton } from "./IconButton";
 import { ModalButton } from "./ModalBtn";
 import { images } from "../images";
 import { ThemeColors } from "react-navigation";
 
-export const Task = ({item, toggleTask}) =>{
+export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -46,9 +46,9 @@ export const Task = ({item, toggleTask}) =>{
                 </View>
                 </TouchableWithoutFeedback>
             </Modal>
-            <Pressable
+            <TouchableOpacity
                 style={[styles.icon, styles.buttonOpen]}
-                onPress={() => setModalVisible(true)}
+                id = {item.id} onPress={onPress} onLongPress={onLongPress} onPress={() => setModalVisible(true)}
             >
                 <View style = {itemStyle.container}>
                     <IconButton style = {[{flex: 1}]} type = {item.completed ? images.completed : images.uncompleted} 
@@ -58,14 +58,16 @@ export const Task = ({item, toggleTask}) =>{
                             {color: (item.completed) ? '#595959':'#00462A'},
                             {textDecorationLine: (item.completed ? 'line-through':'none')}]}>{item.task}
                         </Text>
+                        
                         <View style = {{flexDirection: 'row'}}>
                             <Text style = {itemStyle.datefont}>{item.duedate}</Text>
                             <Text style = {itemStyle.datefont}>  {item.duetime}</Text>
                         </View>
                     </View>
-                    <ModalButton type = {images.menu} />
+                    <ModalButton/>
                 </View>
-            </Pressable>
+                {selected && <View style={styles.overlay} />}
+            </TouchableOpacity>
         </View>
     );
 };
@@ -162,5 +164,13 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       fontSize: 18,
       textAlign: "center",
-    }
+    },
+    overlay: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'rgba(1, 153, 0, 0.5)',
+    },
   });
