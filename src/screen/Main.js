@@ -9,22 +9,8 @@ function Main({navigation}) {
 
   const [taskInfo, setTaskInfo] = useState({});
   const [isEmpty, setIsEmpty] = useState(true);
+  const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
-  /*useFocusEffect( //네비게이션 넘어올때, 시작할때마다 실행!
-    React.useCallback(()=>{
-      const firstLoad = async () => {
-          const loadedTasks = await AsyncStorage.getItem('tasks');
-          setTaskInfo(JSON.parse(loadedTasks || '{}'));
-          console.log(taskInfo)
-          if(!loadedTasks){setIsEmpty(true)}
-          else{console.log(setIsEmpty(false))}
-      }
-        firstLoad();
-      
-      return () => {
-      }
-    }, [])
-  );*/
 
   let today = new Date();
   today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
@@ -36,15 +22,12 @@ function Main({navigation}) {
         const firstLoad = async () => {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTaskInfo(JSON.parse(loadedTasks || '{}'));
-            sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );
             if(!loadedTasks){setIsEmpty(true)}
             else{console.log(setIsEmpty(false))}
-            AsyncStorage.clear
             console.log(taskInfo)
         }
           firstLoad();
     }
-      
   }, [isFocused]);
       
   
@@ -120,18 +103,43 @@ const _SdeleteTask = () => {
     console.log(selectedItems)
   };
 
+
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
-    if(isEmpty === false){return (
-        <Pressable onPress={deSelectItems}>
-          <FlatList 
-            data = {Object.values(sorted)}
-            renderItem={({item}) => (
-            <Task key = {item.id} item = {item} deleteTask = {_deleteTask} toggleTask = {_toggleTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} /> 
-            )}
-            keyExtractor={item => item.id}
-          />
-        </Pressable>
-    )}
+    if(isEmpty === false){
+      if(taskview === 'all'){
+        return (
+          <>
+            <FlatList 
+              data = {Object.values(sorted)}
+              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
+            />
+          </>
+        )
+      }
+      else if(taskview === 'completed'){
+        let viewCompleted = Object.values(taskInfo).filter(task => task.completed === true );
+        return (
+          <>
+            <FlatList 
+              data = {Object.values(viewCompleted)}
+              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
+            />
+          </>
+        )
+      }
+
+      else if(taskview === 'incompleted'){
+        let viewIncompleted = Object.values(taskInfo).filter(task => task.completed === false );
+        return (
+          <>
+            <FlatList 
+              data = {Object.values(viewIncompleted)}
+              renderItem = {({item}) =>  <Task key = {item.id} item = {item} toggleTask = {_toggleTask}/>}  
+            />
+          </>
+        )
+      }
+    }
     else {return(null)}
   }
 
@@ -140,6 +148,8 @@ const _SdeleteTask = () => {
       <Button
         title="+"
         onPress={()=>navigation.navigate('Addtodo')}/>
+<<<<<<< HEAD
+=======
       <Button
         title="삭제하기" //select task 제거
         onPress={_SdeleteTask}/>
@@ -149,6 +159,7 @@ const _SdeleteTask = () => {
       <Button
         title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
         onPress={_selectAllItems} />
+>>>>>>> 4e96e6bc48f7b811dcf734a4e181b760c8308a47
       <DefaultTasks/>
     </View>
   );
