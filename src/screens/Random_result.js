@@ -1,10 +1,8 @@
-// 'src/screens/Random2.js' from branch 'DAYOON0836'
-
 import React, { useState, useEffect, Component } from 'react';
 import { View, Text, Image, TouchableOpacity} from 'react-native';
-import {viewStyles, textStyles, buttonStyles, imageStyles} from '../styles';
-import q from '../Quote.json';
-import T from '../Todo.json';
+import { viewStyles, textStyles, buttonStyles, imageStyles } from '../styles/RandomScreenStyles';
+import q from '../data/Random_quotes.json';
+import T from '../data/Random_todo.json';
 import Checkbox from '../../assets/UnCheckbox.png';
 
 
