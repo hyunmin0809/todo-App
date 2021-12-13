@@ -9,9 +9,11 @@ import { ThemeColors } from "react-navigation";
 export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
 
     return (
         <View style={styles.centeredView}>
+            {/* POPUP */}
             <Modal
                 animationType="fade"
                 transparent={true}
@@ -46,35 +48,36 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
                 </View>
                 </TouchableWithoutFeedback>
             </Modal>
+            {/* EDIT, DELETE, SHARE */}
             <Modal
             animationType="fade"
             transparent={true}
-            visible={modalVisible}
+            visible={modalVisible2}
             onRequestClose={() => {
               Alert.alert("Modal has been closed.");
-              setModalVisible(!modalVisible);
+              setModalVisible2(!modalVisible2);
             }}
           >
             <TouchableWithoutFeedback
-              onPress={() => setModalVisible(!modalVisible)}>
+              onPress={() => setModalVisible2(!modalVisible2)}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                   {/* Edit, Delete, Share */}
                   <Pressable
                     style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => setModalVisible2(!modalVisible2)}
                   >
                     <Text style={styles.btntextStyle}>Edit</Text>
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => setModalVisible2(!modalVisible2)}
                   >
                     <Text style={styles.btntextStyle}>Delete</Text>
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={() => setModalVisible2(!modalVisible2)}
                   >
                     <Text style={styles.btntextStyle}>Share</Text>
                   </Pressable>
@@ -84,7 +87,7 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
           </Modal>
             <TouchableOpacity
                 style={[styles.icon, styles.buttonOpen]}
-                id = {item.id} onPress={onPress} onLongPress={onLongPress} onPress={() => setModalVisible(true)}
+                id = {item.id} onPress={onPress} onLongPress={onLongPress} onPress={() => {setModalVisible(true)}}
             >
                 <View style = {itemStyle.container}>
                     <IconButton style = {[{flex: 1}]} type = {item.completed ? images.completed : images.uncompleted} 
@@ -103,7 +106,7 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
                     {/* <ModalButton type = {images.menu}/> */}
                     <Pressable
                       style={[styles.icon, styles.buttonOpen]}
-                      onPress={() => setModalVisible(true)}
+                      onPress={() => setModalVisible2(true)}
                     >
                       <Text>Modal   </Text>
                       {/* <Image source={type} style={IconStyle.icon}/> */}
