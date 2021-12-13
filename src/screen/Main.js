@@ -73,7 +73,8 @@ function Main({navigation}) {
           </>
         )
       }
-      else if(taskview === 'completed'){
+
+      else if(taskview === 'incompleted'){
         let viewIncompleted = Object.values(taskInfo).filter(task => task.completed === false );
         return (
           <>
