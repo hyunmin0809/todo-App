@@ -108,8 +108,7 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
                       style={[styles.icon, styles.buttonOpen]}
                       onPress={() => setModalVisible2(true)}
                     >
-                      <Text>Modal   </Text>
-                      {/* <Image source={type} style={IconStyle.icon}/> */}
+                      <Image source={images.menu} style={IconStyle.icon}/>
                     </Pressable>
                 </View>
                 {selected && <View style={styles.overlay} />}
@@ -117,6 +116,19 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
         </View>
     );
 };
+
+const IconStyle = StyleSheet.create({
+  icon: {
+      width: 30,
+      height: 30,
+      margin: 10,
+  },
+  direction: {
+      width: 10,
+      height: 10,
+  }
+
+});
 
 const itemStyle = StyleSheet.create({
     container: {
