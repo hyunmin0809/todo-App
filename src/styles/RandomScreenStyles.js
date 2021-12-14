@@ -18,7 +18,7 @@ export const viewStyles = StyleSheet.create({
     width:390,
     height: 'auto',
     padding: 15,
-    backgroundColor: '#e6e6e6',
+    backgroundColor: theme.lightGray,
     alignItems: 'center', 
   },
   item2: {
@@ -27,13 +27,13 @@ export const viewStyles = StyleSheet.create({
     height: 170,
     padding: 15,
     justifyContent: 'center',
-    backgroundColor: '#e6e6e6',
+    backgroundColor: theme.lightGray,
   },
 });
 
 export const textStyles = StyleSheet.create({
   title: {
-    fontSize: 33,
+    fontSize: 24,
     fontWeight: 'bold',
     color: theme.ewhagreen,
     alignItems: 'flex-start',
@@ -41,13 +41,13 @@ export const textStyles = StyleSheet.create({
   },
   title2: {
     marginTop: 70,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: theme.ewhagreen,
   },
   title3: {
     marginTop: 40,
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: theme.ewhagreen,
   },
@@ -60,30 +60,30 @@ export const textStyles = StyleSheet.create({
   author: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#595959',
+    color: theme.midGray,
     marginRight: 20,
     marginTop: 10,
     textAlign: 'right',
   },
   todo: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 23,
+    fontWeight: '600',
     color: theme.ewhagreen,
-    marginRight: 45
+    marginRight: 20,
   },
   duedate: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#595959',
+    color: theme.midGray,
   },
 });
 
-  export const imageStyles = StyleSheet.create({
+export const imageStyles = StyleSheet.create({
     image: {
       width: 116,
       height: 154,
-      marginTop: 150,
-      marginBottom: 50,
+      marginTop: 160,
+      marginBottom: 70,
     },
     image2: {
       width: 40,
@@ -94,27 +94,29 @@ export const textStyles = StyleSheet.create({
 
 export const buttonStyles = StyleSheet.create({
   button: {
-    backgroundColor: '#314c1c',
+    backgroundColor: theme.ewhagreen,
     alignItems: 'center',
     justifyContent: 'center',
     top: 20,
-    width: 202,
+    paddingLeft: 25,
+    paddingRight: 25,
     height: 40,
-    borderRadius: 5,
+    borderRadius: 5,   
   },
   button2: {
-    backgroundColor: '#565656',
+    backgroundColor: theme.midGray,
     alignItems: 'center',
     justifyContent: 'center',
-    top: 20,
     left: 10,
-    width: 85,
+    top: 20,
+    paddingLeft: 25,
+    paddingRight: 25,
     height: 40,
     borderRadius: 5,
   },
   title: {
     fontSize: 13,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: theme.white,
   },
 });

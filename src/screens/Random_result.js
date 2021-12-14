@@ -1,10 +1,9 @@
-import React, { useState, useEffect, Component } from 'react';
-import { View, Text, Image, TouchableOpacity} from 'react-native';
-import { viewStyles, textStyles, buttonStyles, imageStyles } from '../styles/RandomScreenStyles';
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { viewStyles, textStyles, buttonStyles } from '../styles/RandomScreenStyles';
 import q from '../data/Random_quotes.json';
 import T from '../data/Random_todo.json';
-import Checkbox from '../../assets/UnCheckbox.png';
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default class RoundButton extends Component{
     constructor(props) {
@@ -50,21 +49,25 @@ export default class RoundButton extends Component{
         const { quote, author, todo } = this.state
         return (
             <View style={viewStyles.container2}>
-                <Text style={textStyles.title2}> RECOMMANDATION </Text>
-                <View style={viewStyles.item1}>
-                    <Image style={imageStyles.image2} source={Checkbox} />
-                    <View style={{justifyContent: 'center' }}>
-                        <Text style={textStyles.todo}>{todo}</Text>
-                        <Text style={textStyles.duedate}>Set your own due date!</Text>
+                <View style={{ flex:1, top: 15, height: 30, alignItems: 'center' }}>
+                    <Text style={textStyles.title2}> RECOMMANDATION </Text>
+                    <View style={viewStyles.item1}>
+                        <MaterialCommunityIcons name="checkbox-blank-outline" size={30} color="#000000" /> 
+                        <View style={{ paddingLeft: 15 }}>
+                            <Text style={textStyles.todo}>{todo}</Text>
+                            <Text style={textStyles.duedate}>Set your own due date!</Text>
+                        </View>
                     </View>
                 </View>
-                <Text style={textStyles.title3}> MOTIVATING QUOTE </Text>
-                <View style={viewStyles.item2} >
-                    <Text style={textStyles.quote}>"{quote}"</Text>
-                    <Text style={textStyles.author}>- {author}</Text>
+                <View style={{ flex:1, height: 30, alignItems: 'center' }}>
+                    <Text style={textStyles.title3}> MOTIVATING QUOTE </Text>
+                    <View style={viewStyles.item2} >
+                        <Text style={textStyles.quote}>"{quote}"</Text>
+                        <Text style={textStyles.author}>- {author}</Text>
+                    </View>
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', top: 30}}>
-                    <TouchableOpacity style={buttonStyles.button} onPress={this.getNew}>
+                    <TouchableOpacity style={buttonStyles.button} onPress={() => {/*생성 화면 연결함수*/}}>
                         <Text style={buttonStyles.title}>ADD TO MY TO-DO LIST</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={buttonStyles.button2} onPress={this.getNew}>
