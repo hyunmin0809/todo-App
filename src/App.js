@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DrawerContent } from './components/DrawerContent';
+import { theme } from './theme';
 
 import TodoListScreen from './screens/TodoList';
 import CategoryScreen from './screens/Category';
@@ -29,7 +30,17 @@ const App = () => {
         <NavigationContainer>
             <Drawer.Navigator 
                 initialRouteName="TodoList"
-                drawerContent={props => <DrawerContent {...props}/>} 
+                drawerContent={props => <DrawerContent {...props}/>}
+                screenOptions={{
+                    headerStyle: {
+                    },
+                    headerTitleStyle: {
+                        fontSize: 30,
+                        margin: 10,
+                        color: theme.ewhagreen,
+
+                    }
+                }} 
             >
                 <Drawer.Screen name="To-do List" component={TodoListScreen} />
                 <Drawer.Screen name="Category" component={CategoryScreen} />
