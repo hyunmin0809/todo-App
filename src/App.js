@@ -14,7 +14,11 @@ const Drawer = createDrawerNavigator();
 const RandomStack = createStackNavigator();
 
 const RandomStackScreen = ({navigation}) => (
-    <RandomStack.Navigator> 
+    <RandomStack.Navigator
+        screenOptions={{
+            headerShown: false
+        }}
+    > 
         <RandomStack.Screen name="RandomScreen" component={RandomScreen} />
         <RandomStack.Screen name="RandomScreen_result" component={RandomScreen_result} />
     </RandomStack.Navigator> 
