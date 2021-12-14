@@ -1,15 +1,19 @@
 /*메인 스크린에 띄울 task list */
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, View, Text, Pressable, Alert, Modal, TouchableWithoutFeedback, TouchableOpacity, Image } from "react-native";
 import { IconButton } from "./IconButton";
 import { ModalButton } from "./ModalBtn";
 import { images } from "../images";
 import { ThemeColors } from "react-navigation";
 
-export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
+export const Task = ({Edit, item, selected, onPress, onLongPress, toggleTask, getId}) =>{
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
+    
+    useEffect(() => {
+      getId(item.id)
+    }, []);
 
     return (
         <View style={styles.centeredView}>
@@ -59,13 +63,15 @@ export const Task = ({item, selected, onPress, onLongPress, toggleTask}) =>{
             }}
           >
             <TouchableWithoutFeedback
-              onPress={() => setModalVisible2(!modalVisible2)}>
+              onPress={() => {
+                setModalVisible2(!modalVisible2)
+              }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                   {/* Edit, Delete, Share */}
                   <Pressable
                     style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible2(!modalVisible2)}
+                    onPress={Edit}
                   >
                     <Text style={styles.btntextStyle}>Edit</Text>
                   </Pressable>

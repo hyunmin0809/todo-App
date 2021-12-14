@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Addtodo from './src/screen/Addtodo';
 import Main from './src/screen/Main' 
+import Edit from './src/screen/Edit'
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,19 @@ function App(){
                     },
 
               }}/> 
+          <Stack.Screen name="Edit" component={Edit} 
+              options={{ 
+                  title: 'Edit to-do item', 
+                  headerStyle: {
+                      backgroundColor: '#00462A',
+                    },
+                    headerTintColor: '#fff',
+                    headerTitleStyle: {
+                      fontWeight: 'bold',
+                    },
+
+              }}/> 
+              
     </Stack.Navigator> 
   </NavigationContainer> 
     );

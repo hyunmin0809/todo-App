@@ -11,10 +11,16 @@ function Main({navigation}) {
   const [isEmpty, setIsEmpty] = useState(true);
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
+  const [taskid, setTaskid] = useState('');
+
+  const getId = (id) =>{
+    setTaskid(id);
+  }
 
   let today = new Date();
   today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
-  let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음*/
+  sorted = Object.values(taskInfo).filter(task => task);
+  /*let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음*/
 
   useEffect(() => {
     
@@ -24,12 +30,12 @@ function Main({navigation}) {
             setTaskInfo(JSON.parse(loadedTasks || '{}'));
             if(!loadedTasks){setIsEmpty(true)}
             else{console.log(setIsEmpty(false))}
-            console.log(taskInfo)
         }
           firstLoad();
     }
   }, [isFocused]);
       
+  
 
   const _saveTasks = async tasks => {
       try{
@@ -46,14 +52,15 @@ function Main({navigation}) {
     setTaskInfo(currentTasks);
     _saveTasks(currentTasks);
   }
-
+  const _editTask = () =>{
+    navigation.navigate("Edit", {itemId: taskid})
+  };
   // task 제거 modal과 연결 필요
   const _deleteTask = id => {
     const currentTasks = Object.assign({}, taskInfo);
     delete currentTasks[id];
     _saveTasks(currentTasks);
   };
-  
 /* Select/Deselect */
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -81,8 +88,7 @@ const _SdeleteTask = () => {
     }
     _saveTasks(currentTasks);
   };
-
-// 전체 task 제거
+// 모든 task 제거
   const _deleteTaskAll = id => {
     const currentTasks = Object.assign({}, taskInfo);
     if (id) {
@@ -94,20 +100,16 @@ const _SdeleteTask = () => {
     }
   };
 
-  // 전체 task 선택
+  // 모든 task 선택
   const _selectAllItems = () => {
     const currentTasks = Object.assign({}, taskInfo);
     for(const id in currentTasks){
       if (!selectedItems.includes(id))
         selectedItems.push(id);
-    }
-    setSelectedItems([...selectedItems]);
+      }
+    console.log(selectedItems)
   };
 
-// 전체 task 선택 해제
-  const _deselectAllItems = () => {
-    setSelectedItems([]);
-  };
 
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
@@ -124,8 +126,7 @@ const _SdeleteTask = () => {
           <FlatList 
             data = {Object.values(listview)}
             renderItem={({item}) => (
-            <Task key = {item.id} item = {item} deleteTask = {_deleteTask} toggleTask = {_toggleTask} onPress={() => handleOnPress(item)} 
-            onLongPress={() => selectItems(item)} selected={getSelected(item)}/> 
+            <Task key = {item.id} item = {item} deleteTask = {_deleteTask} toggleTask = {_toggleTask} Edit={_editTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId = {getId} /> 
             )}
             keyExtractor={item => item.id}
           />
@@ -148,9 +149,6 @@ const _SdeleteTask = () => {
       <Button
         title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
         onPress={_selectAllItems} />
-        <Button
-        title="전체 해제하기" //전체 task 선택(log로만 확인 가능)
-        onPress={_deselectAllItems} />
       <DefaultTasks/>
     </View>
   );
