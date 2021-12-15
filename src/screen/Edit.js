@@ -44,12 +44,22 @@ function Edit({route, navigation}){
 
     const [tasks, setTasks] = useState({}) /*최종으로 넘길 값*/
     
+    let currentTasks = Object.assign({}, tasks);
+    const ID = itemId.itemId;
+
     useEffect(() => {
         const firstLoad = async () => {
           try {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTasks(JSON.parse(loadedTasks || '{}'));
-          } catch (err) {
+            currentTasks = (JSON.parse(loadedTasks || '{}'));
+            setTask(currentTasks[ID]['task'])
+            setDuedate(currentTasks[ID]['duedate'])
+            setDuetime(currentTasks[ID]['duetime'])
+            setComment(currentTasks[ID]['comment'])
+            setCategory(currentTasks[ID]['category'])
+            setPicture(currentTasks[ID]['picture'])
+            } catch (err) {
             console.log(err);
           }
         };
@@ -68,17 +78,14 @@ function Edit({route, navigation}){
     };
     
     function PressSubmit() {
-        const currentTasks = Object.assign({}, tasks);
-        console.log(currentTasks)
-        const ID = itemId.itemId;
-        console.log(ID)
         delete currentTasks[ID]
-        /*const newTaskObject = {
+
+        const newTaskObject = {
             [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },
         };
-        _saveTasks({currentTasks, ...newTaskObject});
+        _saveTasks({...currentTasks, ...newTaskObject});
         navigation.navigate('Main');
-        setLoading(true)*/
+        setLoading(true)
     }
 
 
