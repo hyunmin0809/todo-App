@@ -1,10 +1,9 @@
 /*duedate랑 due time 용 */
 
 import React, {useState} from 'react';
-import {Text, View, Pressable, StyleSheet, Modal, Dimensions, TouchableOpacity, TouchableWithoutFeedback, AsyncStorage,} from 'react-native';
+import {Text, View, Pressable, StyleSheet, TextInput} from 'react-native';
 import { textStyles, viewStyle } from '../substyle';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { ScrollView } from 'react-native-gesture-handler';
 
 
 export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
@@ -71,28 +70,105 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
 };
 
 
-export const Category = ({data, getData}) => {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [categories, setCategories] = useState({});
+export const Category = ({data, getData, categories, setCategories}) => {
+    const [press, setPress] = useState(false)
+    const [category, setCategory] = useState('')
+    const [loadedCategories, setLoadedCategories] = useState({
+        '1': {id: '1', text: 'study'},
+        '2': {id: '2', text: 'social'} 
+
+    });
+
+
+    const CategoryItem = ({text}) => {
+        if(data === text){
+            return (
+                <Pressable 
+                    style = {[viewStyle.button, {marginLeft: 0, marginRight: 8, borderRadius: 5, backgroundColor: '#AFAFAF'},]}
+                    onPressOut = {()=>{getData(text)}}    
+                >
+                    <Text style = {{margin:3, color:'white'}}>{text}</Text>
+                </Pressable>
+            )
+        }
+        else{
+            return (
+                <Pressable 
+                    style = {[viewStyle.button, {marginLeft: 0, marginRight: 8, borderRadius: 5},]}
+                    onPressOut = {()=>{getData(text)}} 
+                >
+                    <Text style = {{margin:3}}>{text}</Text>
+                </Pressable>
+            )
+        }
+    }
+
+    const _saveCategory = () => {
+        
+        /*const ID = Date.now().toString ;
+         const newCategoryObject = {
+             [ID]: { id: ID, text: category},
+         };
+        setCategory({...loadedCategories,...newCategoryObject})
+        console.log(category)*/
+        setPress(false)
+    }
+
+    const _onChangeText = text =>{
+        setCategory(text);
+    }
+
+    const AddCategories = ({value, onChangeText}) => {
+        if(press === true){
+            return(
+                <View style = {{alignItems: "center", flexDirection: 'row', backgroundColor:"#E8E8E8"}}>
+                    <TextInput style ={{
+                        fontSize: 14,
+                        width: 100,
+                        height: 30,
+                        backgroundColor: "#E8E8E8"}}
+                        placeholder="  new category"
+                        placeholderTextColor= {"#898989"}
+                        maxLength={10}
+                        autoCapitalize= 'none'
+                        autoCorrect= {false}
+                        value = {value} onChangeText={onChangeText}
+                    ></TextInput>
+                    <Pressable onPressOut = {()=>{setPress(false); setCategory('');}}><Text> x </Text></Pressable>
+                    <Pressable onPressOut = {_saveCategory}><Text> submit  </Text></Pressable>
+                </View>    
+            )
+        }
+        else{
+            return(
+                <Pressable 
+                    style = {[viewStyle.button, {height: 30, width: 30, borderRadius: 5}]}
+                    onPressOut={()=>{setPress(true); console.log(loadedCategories)}}    
+                >
+                    <Text style = {{margin:3}}>+</Text>
+                </Pressable>
+            )
+        }
+    }
 
     return(
-    <>
-        <View style={viewStyle.container}>
-            <Text style={[textStyles.heading, {flexDirection:"row"}]}>Category</Text>
+        <View style ={viewStyle.container}>
+            <View style={viewStyle.container}>
+                <Text style={[textStyles.heading, {flexDirection:"row", width: '100%'}]}>Category</Text>
+            </View>
+            <View style = {{justifyContent: 'flex-start', alignItems: "center", width: '100%', flexDirection: 'row', marginTop: 10,}}>
+                <View style = {{flexDirection:"row", height: 30}}>
+                    {Object.values(loadedCategories).map(item => (<CategoryItem key = {item.id} text = {item.text}/>))}
+                </View>
+                <AddCategories value = {category} onChangeText={_onChangeText}/>   
+            </View>
         </View>
-        {/*<ScrollView width = '80%'>
-            {Object.values().map()}
-        </ScrollView>*/}
-    </>
+    
       
     );
 };
 
-const CategoryItem = ({selectCategory, item}) => {
-    return (
-        <View style = {viewStyle.button}>{item.category}</View>
-    )
-}
+
 const Box = () => {
     return(
         <View style = {[viewStyle.button, {height: 30, width: 30, marginLeft: 0}]}></View>

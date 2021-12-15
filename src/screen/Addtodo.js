@@ -103,7 +103,7 @@ function Addtodo({navigation}){
                     
                     <Duedate_time data1={duedate} data2={duetime} getData1={getData1} getData2={getData2}/>
 
-                    <Category data = {categories} getData = {_saveCategories}/>
+                    <Category data = {category} getData = {setCategory}/>
             
                     <AddComment value = {comment} onChangeText = {commentChangetext}/> 
                     <GalleryPicker picture = {picture} setPicture = {setPicture}/>
