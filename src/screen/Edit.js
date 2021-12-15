@@ -10,13 +10,13 @@ import { GalleryPicker} from '../components/Picture'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
-function Addtodo({navigation}){
+function Edit({route, navigation}){
+    const itemId = route.params;
     const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
     let today = new Date();
     let date = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0') +" "+weekday[today.getDay()];
     let time = today.getHours().toString().padStart(2,'0') + ":"+ today.getMinutes().toString().padStart(2,'0');
-
-
+    
     const [task, setTask] = useState('')/*task 변수*/
     const [duedate, setDuedate] = useState(date) /*duedate 변수*/
     const [duetime, setDuetime] = useState(time) /*duetime 변수*/
@@ -68,13 +68,16 @@ function Addtodo({navigation}){
     };
     
     function PressSubmit() {
-        const ID = Date.now().toString();
-        const newTaskObject = {
+        const currentTasks = Object.assign({}, tasks);
+        console.log(tasks)
+        const ID = itemId.itemId;
+        delete currentTasks[ID]
+        /*const newTaskObject = {
             [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },
         };
-        _saveTasks({...tasks, ...newTaskObject});
-        setLoading(true);
+        _saveTasks({currentTasks, ...newTaskObject});
         navigation.navigate('Main');
+        setLoading(true)*/
     }
 
 
@@ -97,7 +100,7 @@ function Addtodo({navigation}){
                 
             {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
             <View style = {viewStyles.footer}>
-                <ResetButton onPressout = {() => {navigation.push('Addtodo')}}/>
+                <ResetButton onPressout = {() => {navigation.push('Edit'), {itemId: itemId}}}/>
                 <ExportButton onPressout = {PressSubmit}/>
             </View>
 
@@ -121,7 +124,7 @@ const ResetButton = ({onPressout}) => {
 
 const ExportButton = ({onPressout}) => {
     /*const _import = () => 메인화면으로 이동, 값 전달*/ 
-    
+        
         return(
             <Pressable 
                 style = {[{ backgroundColor: '#00462A' }, footer.pressable]}
@@ -164,4 +167,4 @@ const footer = StyleSheet.create({ /*항목생성 화면 아래의 버튼 두개
 });
    
 
-export default Addtodo;
+export default Edit;

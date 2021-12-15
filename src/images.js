@@ -3,6 +3,7 @@ import UnCheckBox from '../assets/Unchecked_Checkbox.png'
 import Menu from '../assets/Menu_Vertical.png'
 import right from '../assets/arrow-left.png'
 import left from '../assets/arrow-right.png'
+import gallery from '../assets/gallery.png'
 
 export const images = {
     completed: CheckBox,
@@ -11,4 +12,6 @@ export const images = {
     
     right: right,
     left: left,
+
+    gallery: gallery,
 };
