@@ -16,7 +16,7 @@ function Edit({route, navigation}){
     let today = new Date();
     let date = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0') +" "+weekday[today.getDay()];
     let time = today.getHours().toString().padStart(2,'0') + ":"+ today.getMinutes().toString().padStart(2,'0');
-    
+
     const [task, setTask] = useState('')/*task 변수*/
     const [duedate, setDuedate] = useState(date) /*duedate 변수*/
     const [duetime, setDuetime] = useState(time) /*duetime 변수*/
@@ -69,8 +69,9 @@ function Edit({route, navigation}){
     
     function PressSubmit() {
         const currentTasks = Object.assign({}, tasks);
-        console.log(tasks)
+        console.log(currentTasks)
         const ID = itemId.itemId;
+        console.log(ID)
         delete currentTasks[ID]
         /*const newTaskObject = {
             [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },

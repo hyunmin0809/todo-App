@@ -11,9 +11,7 @@ export const Task = ({Edit, item, selected, onPress, onLongPress, toggleTask, ge
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
     
-    useEffect(() => {
-      getId(item.id)
-    }, []);
+    
 
     return (
         <View style={styles.centeredView}>
@@ -112,7 +110,10 @@ export const Task = ({Edit, item, selected, onPress, onLongPress, toggleTask, ge
                     {/* <ModalButton type = {images.menu}/> */}
                     <Pressable
                       style={[styles.icon, styles.buttonOpen]}
-                      onPress={() => setModalVisible2(true)}
+                      onPress={() => {
+                        setModalVisible2(true)
+                        getId(item.id)
+                      }}
                     >
                       <Image source={images.menu} style={IconStyle.icon}/>
                     </Pressable>

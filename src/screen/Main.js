@@ -20,7 +20,7 @@ function Main({navigation}) {
   let today = new Date();
   today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
   sorted = Object.values(taskInfo).filter(task => task);
-  /*let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음*/
+  /*let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음.*/
 
   useEffect(() => {
     
@@ -29,7 +29,7 @@ function Main({navigation}) {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTaskInfo(JSON.parse(loadedTasks || '{}'));
             if(!loadedTasks){setIsEmpty(true)}
-            else{console.log(setIsEmpty(false))}
+            else{setIsEmpty(false)}
         }
           firstLoad();
     }
