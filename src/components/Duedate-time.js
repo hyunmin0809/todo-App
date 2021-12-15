@@ -1,9 +1,11 @@
 /*duedate랑 due time 용 */
 
 import React, {useState} from 'react';
-import {Text, View, Pressable, StyleSheet, Modal, Dimensions} from 'react-native';
+import {Text, View, Pressable, StyleSheet, Modal, Dimensions, TouchableOpacity, TouchableWithoutFeedback, AsyncStorage,} from 'react-native';
 import { textStyles, viewStyle } from '../substyle';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { ScrollView } from 'react-native-gesture-handler';
+
 
 export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
     const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
@@ -69,14 +71,28 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
 };
 
 
-export const Category = () => {
+export const Category = ({data, getData}) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [categories, setCategories] = useState({});
+
     return(
-        <View style = {viewStyle.container}>
-        <Text style ={textStyles.heading}>Category</Text>
+    <>
+        <View style={viewStyle.container}>
+            <Text style={[textStyles.heading, {flexDirection:"row"}]}>Category</Text>
         </View>
+        {/*<ScrollView width = '80%'>
+            {Object.values().map()}
+        </ScrollView>*/}
+    </>
+      
     );
 };
 
+const CategoryItem = ({selectCategory, item}) => {
+    return (
+        <View style = {viewStyle.button}>{item.category}</View>
+    )
+}
 const Box = () => {
     return(
         <View style = {[viewStyle.button, {height: 30, width: 30, marginLeft: 0}]}></View>
@@ -89,5 +105,26 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       marginTop: 22
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "flex-end",
+      },
+    modal: {
+        position: "absolute",
+        top: 100,
+        backgroundColor: '#E6E6E6',
+        borderRadius: 10,
+        padding: 20,
+        alignItems: "center",
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     },
 });

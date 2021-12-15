@@ -4,6 +4,7 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import {View, Text, Button, ScrollView, Pressable, FlatList} from 'react-native';
 import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { viewStyle } from '../substyle';
 
 function Main({navigation}) {
 
@@ -17,10 +18,9 @@ function Main({navigation}) {
     setTaskid(id);
   }
 
-  let today = new Date();
-  today = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0')
-  sorted = Object.values(taskInfo).filter(task => task);
-  /*let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음.*/
+  let todate = new Date();
+  today = todate.getFullYear()+ "-" + parseInt(todate.getMonth()+1)+"-"+todate.getDate().toString().padStart(2,'0')
+  let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today );/*오늘 이후의 item만 여기에 있음.*/
 
   useEffect(() => {
     
@@ -109,7 +109,21 @@ const _SdeleteTask = () => {
       }
     console.log(selectedItems)
   };
-
+  function Filtering() {
+    return(
+      <View style={{margintop: 5,marginLeft:5, marginRight:5, width: '95%', height: 50, alignItems: 'center', flexDirection: "row"}}>
+          <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <View style = {[viewStyle.button, {backgroundColor:"#424242", flexDirection: "row", justifyContent: 'center', alignItems: 'center', borderRadius: 8}]}>
+              <Text style = {{color: '#E8E8E8', margin:5, marginVertical:8, fontWeight: 'bold', fontSize: 15}}>{today}</Text>
+            </View>
+          </View>
+          <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-end', flexDirection: "row" }}>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('all')}}><Text>All</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('completed')}}><Text>Completed</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('incompleted')}}><Text>Incompleted</Text></Pressable>
+          </View>
+        </View>
+    )}
 
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
@@ -123,13 +137,12 @@ const _SdeleteTask = () => {
       
       return (
         <Pressable onPress={deSelectItems}>
-          <FlatList 
-            data = {Object.values(listview)}
-            renderItem={({item}) => (
-            <Task key = {item.id} item = {item} deleteTask = {_deleteTask} toggleTask = {_toggleTask} Edit={_editTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId = {getId} /> 
-            )}
-            keyExtractor={item => item.id}
-          />
+            <FlatList
+              data={Object.values(listview)}
+              renderItem={({ item }) => (
+                <Task key={item.id} item={item} deleteTask={_deleteTask} toggleTask={_toggleTask} Edit={_editTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId={getId} />
+              )}
+              keyExtractor={item => item.id} />
         </Pressable>
     )}
     else {return(null)}
@@ -149,7 +162,9 @@ const _SdeleteTask = () => {
       <Button
         title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
         onPress={_selectAllItems} />
+      <Filtering/>
       <DefaultTasks/>
+
     </View>
   );
     

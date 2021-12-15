@@ -6,7 +6,6 @@ export const viewStyle = StyleSheet.create({
         width: '90%',
         alignItems: 'flex-start',
         justifyContent: 'center', 
-        backgroundColor: "#fff", /*컨테이너 크기 확인용 나중에 삭제*/
         marginTop: 10,
     },
     subcontainer: {/*버튼 정렬용 */

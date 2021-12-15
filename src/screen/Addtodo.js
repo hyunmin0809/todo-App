@@ -4,7 +4,7 @@
 import React, {useState, useEffect} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
 import { AddTask, AddComment } from '../components/Input'
-import { Duedate_time } from '../components/Duedate-time'
+import { Duedate_time, Category } from '../components/Duedate-time'
 import { GalleryPicker} from '../components/Picture'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -33,6 +33,10 @@ function Addtodo({navigation}){
         setDuetime(data2);
     }
 
+    const getData3 = (data3) => {
+        setCategories(data3);
+    }
+
     const taskChangetext = text =>{ /*task에 text가 변할때마다 task에 그 값을 넣어줌 */
         setTask(text);
     }
@@ -41,7 +45,7 @@ function Addtodo({navigation}){
         setComment(text);
     }
 
-
+    const [categories, setCategories] = useState({})
     const [tasks, setTasks] = useState({}) /*최종으로 넘길 값*/
     
     useEffect(() => {
@@ -49,6 +53,8 @@ function Addtodo({navigation}){
           try {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTasks(JSON.parse(loadedTasks || '{}'));
+            const loadedCategories = await AsyncStorage.getItem('categories')
+            setCategories(JSON.parse(loadedCategories || '{}'));
           } catch (err) {
             console.log(err);
           }
@@ -67,6 +73,15 @@ function Addtodo({navigation}){
         }
     };
     
+    const _saveCategories = async categories => {
+        try {
+            await AsyncStorage.setItem('categories', JSON.stringify(categories));
+            setCategories(categories)
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     function PressSubmit() {
         const ID = Date.now().toString();
         const newTaskObject = {
@@ -88,7 +103,7 @@ function Addtodo({navigation}){
                     
                     <Duedate_time data1={duedate} data2={duetime} getData1={getData1} getData2={getData2}/>
 
-                    {/*<Category/> */}
+                    <Category data = {categories} getData = {_saveCategories}/>
             
                     <AddComment value = {comment} onChangeText = {commentChangetext}/> 
                     <GalleryPicker picture = {picture} setPicture = {setPicture}/>
