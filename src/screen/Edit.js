@@ -46,6 +46,7 @@ function Edit({route, navigation}){
     
     let currentTasks = Object.assign({}, tasks);
     const ID = itemId.itemId;
+    console.log(ID)
 
     useEffect(() => {
         const firstLoad = async () => {
@@ -108,7 +109,13 @@ function Edit({route, navigation}){
                 
             {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
             <View style = {viewStyles.footer}>
-                <ResetButton onPressout = {() => {navigation.push('Edit'), {itemId: itemId}}}/>
+                <ResetButton onPressout = {() => 
+                    {setTask(currentTasks[ID]['task'])
+                    setDuedate(currentTasks[ID]['duedate'])
+                    setDuetime(currentTasks[ID]['duetime'])
+                    setComment(currentTasks[ID]['comment'])
+                    setCategory(currentTasks[ID]['category'])
+                    setPicture(currentTasks[ID]['picture'])}}/>
                 <ExportButton onPressout = {PressSubmit}/>
             </View>
 
