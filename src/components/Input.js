@@ -1,13 +1,13 @@
 /* add comment랑 add task 함수 제작 */
 import React, { useState } from 'react';
 import {StyleSheet, TextInput, Text, View} from 'react-native';
-import { textStyles, viewStyle } from '../substyle';
+import { textStyles, viewStyles } from '../styles/TodoListScreenStyles';
 
 
 export const AddTask = ({value, onChangeText}) => {
    
     return(
-        <View style = {viewStyle.container}>
+        <View style = {viewStyles.container}>
         <TextInput style ={inputStyle.addTask}
             placeholder="Add Task here..."
             placeholderTextColor= {"#898989"}
@@ -24,7 +24,7 @@ export const AddTask = ({value, onChangeText}) => {
 export const AddComment = ({value, onChangeText}) => {
     return(
   
-            <View style = {viewStyle.container}> 
+            <View style = {viewStyles.container}> 
                 <Text style={textStyles.heading}>Notes</Text>
                 <TextInput 
                     style={[inputStyle.addTask, inputStyle.addComment]}

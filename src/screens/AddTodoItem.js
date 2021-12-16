@@ -1,5 +1,3 @@
-
-
 /*항목 생성 screen */
 import React, {useState, useEffect} from 'react';
 import {StatusBar, SafeAreaView, StyleSheet, Text, View, Pressable, TouchableWithoutFeedback, Keyboard, Button} from 'react-native';
@@ -89,7 +87,7 @@ function Addtodo({navigation}){
         };
         _saveTasks({...tasks, ...newTaskObject});
         setLoading(true);
-        navigation.navigate('Main');
+        navigation.navigate('TodoListScreen');
     }
 
 
@@ -112,7 +110,7 @@ function Addtodo({navigation}){
                 
             {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
             <View style = {viewStyles.footer}>
-                <ResetButton onPressout = {() => {navigation.push('Addtodo')}}/>
+                <ResetButton onPressout = {() => {navigation.push('AddTodoItemScreen')}}/>
                 <ExportButton onPressout = {PressSubmit}/>
             </View>
 

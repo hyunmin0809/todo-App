@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react';
 import {Text, View, Pressable, StyleSheet, TextInput} from 'react-native';
-import { textStyles, viewStyle } from '../substyle';
+import { textStyles, viewStyles } from '../styles/TodoListScreenStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 
@@ -35,20 +35,20 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
     return(
         <>
 
-            <View style={viewStyle.container}>
+            <View style={viewStyles.container}>
                 <Text style={[textStyles.heading, {flexDirection:"row"}]}>Due date and Due time</Text>
             </View>
 
-            <View style={[viewStyle.container, viewStyle.subcontainer]}>
+            <View style={[viewStyles.container, viewStyles.subcontainer]}>
                 <Box />
                 <Pressable 
-                    style = {[viewStyle.button, {height:30, width: '60%'}]}
+                    style = {[viewStyles.button, {height:30, width: '60%'}]}
                     onPress={() => showMode('date')}
                 >
                     <Text style = {textStyles.heading}>{data1}</Text>
                 </Pressable>  
                 <Pressable 
-                    style = {[viewStyle.button, {height:30, width: '28%'}]}
+                    style = {[viewStyles.button, {height:30, width: '28%'}]}
                     onPress={() => showMode('time')}
                 >
                     <Text style = {textStyles.heading}>{data2}</Text>
@@ -84,7 +84,7 @@ export const Category = ({data, getData, categories, setCategories}) => {
         if(data === text){
             return (
                 <Pressable 
-                    style = {[viewStyle.button, {marginLeft: 0, marginRight: 8, borderRadius: 5, backgroundColor: '#AFAFAF'},]}
+                    style = {[viewStyles.button, {marginLeft: 0, marginRight: 8, borderRadius: 5, backgroundColor: '#AFAFAF'},]}
                     onPressOut = {()=>{getData(text)}}    
                 >
                     <Text style = {{margin:3, color:'white'}}>{text}</Text>
@@ -94,7 +94,7 @@ export const Category = ({data, getData, categories, setCategories}) => {
         else{
             return (
                 <Pressable 
-                    style = {[viewStyle.button, {marginLeft: 0, marginRight: 8, borderRadius: 5},]}
+                    style = {[viewStyles.button, {marginLeft: 0, marginRight: 8, borderRadius: 5},]}
                     onPressOut = {()=>{getData(text)}} 
                 >
                     <Text style = {{margin:3}}>{text}</Text>
@@ -142,7 +142,7 @@ export const Category = ({data, getData, categories, setCategories}) => {
         else{
             return(
                 <Pressable 
-                    style = {[viewStyle.button, {height: 30, width: 30, borderRadius: 5}]}
+                    style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
                     onPressOut={()=>{setPress(true); console.log(loadedCategories)}}    
                 >
                     <Text style = {{margin:3}}>+</Text>
@@ -152,8 +152,8 @@ export const Category = ({data, getData, categories, setCategories}) => {
     }
 
     return(
-        <View style ={viewStyle.container}>
-            <View style={viewStyle.container}>
+        <View style ={viewStyles.container}>
+            <View style={viewStyles.container}>
                 <Text style={[textStyles.heading, {flexDirection:"row", width: '100%'}]}>Category</Text>
             </View>
             <View style = {{justifyContent: 'flex-start', alignItems: "center", width: '100%', flexDirection: 'row', marginTop: 10,}}>
@@ -171,7 +171,7 @@ export const Category = ({data, getData, categories, setCategories}) => {
 
 const Box = () => {
     return(
-        <View style = {[viewStyle.button, {height: 30, width: 30, marginLeft: 0}]}></View>
+        <View style = {[viewStyles.button, {height: 30, width: 30, marginLeft: 0}]}></View>
     );
 };
 

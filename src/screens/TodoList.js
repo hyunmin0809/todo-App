@@ -1,12 +1,15 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import {View, Text, Button, ScrollView, Pressable, FlatList} from 'react-native';
+import { View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
 import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { viewStyle } from '../substyle';
+import { viewStyles } from '../styles/TodoListScreenStyles';
 
-function Main({navigation}) {
+import AddFloatingButton from '../components/AddFloatingButton';
+import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
+
+function TodoList({navigation}) {
 
   const [taskInfo, setTaskInfo] = useState({});
   const [isEmpty, setIsEmpty] = useState(true);
@@ -51,7 +54,7 @@ function Main({navigation}) {
     _saveTasks(currentTasks);
   }
   const _editTask = () =>{
-    navigation.navigate("Edit", {itemId: taskid})
+    navigation.navigate('EditTodoItemScreen', {itemId: taskid})
   };
 
   // task Modal에서 제거 
@@ -121,7 +124,7 @@ function Main({navigation}) {
     return(
       <View style={{margintop: 5,marginLeft:5, marginRight:5, width: '95%', height: 50, alignItems: 'center', flexDirection: "row"}}>
           <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-start' }}>
-            <View style = {[viewStyle.button, {backgroundColor:"#424242", flexDirection: "row", justifyContent: 'center', alignItems: 'center', borderRadius: 8}]}>
+            <View style = {[viewStyles.button, {backgroundColor:"#424242", flexDirection: "row", justifyContent: 'center', alignItems: 'center', borderRadius: 8}]}>
               <Text style = {{color: '#E8E8E8', margin:5, marginVertical:8, fontWeight: 'bold', fontSize: 15}}>{today}</Text>
             </View>
           </View>
@@ -158,10 +161,10 @@ function Main({navigation}) {
   }
 
   return (
-    <View>
+    <View style ={ {flex:1} }>
       <Button
         title="+"
-        onPress={()=>navigation.navigate('Addtodo')}/>
+        onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
       <Button
         title="삭제하기" //select task 제거
         onPress={_SdeleteTask}/>
@@ -174,12 +177,14 @@ function Main({navigation}) {
       <Button
         title="전체 해제하기" //전체 task 선택(log로만 확인 가능)
         onPress={_deselectAllItems} />
-      <Button title="공유" onPress={shareImage} />
+      <Button title="공유" onPress={()=>{}/*shareImage*/} />
       <Filtering/>
       <DefaultTasks/>
+      <AddFloatingButton />
+      <ArchiveFloatingButton/>
     </View>
   );
     
 }
  
-  export default Main;
+  export default TodoList;

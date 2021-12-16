@@ -85,7 +85,7 @@ function Edit({route, navigation}){
             [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, completed: false },
         };
         _saveTasks({...currentTasks, ...newTaskObject});
-        navigation.navigate('Main');
+        navigation.navigate('TodoListScreen');
         setLoading(true)
     }
 

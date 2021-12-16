@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
 import {StyleSheet, TextInput} from 'react-native';
-import {viewStyle, textStyles} from '../styles';
+import {textStyles} from '../styles/TodoListScreenStyles';
 
 <Text style ={textStyles.heading}>Location</Text>

@@ -1,7 +1,7 @@
 /*항목 생성 component style */
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-export const viewStyle = StyleSheet.create({
+export const viewStyles = StyleSheet.create({
     container: {/*칸 나누기 용 */
         width: '90%',
         alignItems: 'flex-start',
