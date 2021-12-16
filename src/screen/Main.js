@@ -35,8 +35,6 @@ function Main({navigation}) {
     }
   }, [isFocused]);
       
-  
-
   const _saveTasks = async tasks => {
       try{
           await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
@@ -82,7 +80,7 @@ function Main({navigation}) {
   };
 
 // select task 제거
-const _SdeleteTask = () => {
+  const _SdeleteTask = () => {
     const currentTasks = Object.assign({}, taskInfo);
     for(var i = 0; i < selectedItems.length; i++){
       var c = selectedItems[i];
@@ -92,26 +90,31 @@ const _SdeleteTask = () => {
     _saveTasks(currentTasks);
   };
   
-// 모든 task 제거
+// 전체 task 제거
   const _deleteTaskAll = id => {
     const currentTasks = Object.assign({}, taskInfo);
     if (id) {
     for(const id in currentTasks){
         delete currentTasks[id];
-     }
-     setSelectedItems([]);
-     _saveTasks(currentTasks);
+    }
+    setSelectedItems([]);
+    _saveTasks(currentTasks);
     }
   };
 
-  // 모든 task 선택
+  // 전체 task 선택
   const _selectAllItems = () => {
     const currentTasks = Object.assign({}, taskInfo);
-    for(const id in currentTasks){
+    for (const id in currentTasks) {
       if (!selectedItems.includes(id))
         selectedItems.push(id);
-      }
-    console.log(selectedItems)
+    }
+    setSelectedItems([...selectedItems]);
+  };
+
+  // 전체 task 선택 해제
+  const _deselectAllItems = () => {
+    setSelectedItems([]);
   };
   
   function Filtering() {
@@ -130,6 +133,7 @@ const _SdeleteTask = () => {
         </View>
     )}
 
+    
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
       let listview = sorted
@@ -167,9 +171,12 @@ const _SdeleteTask = () => {
       <Button
         title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
         onPress={_selectAllItems} />
+      <Button
+        title="전체 해제하기" //전체 task 선택(log로만 확인 가능)
+        onPress={_deselectAllItems} />
+      <Button title="공유" onPress={shareImage} />
       <Filtering/>
       <DefaultTasks/>
-
     </View>
   );
     
