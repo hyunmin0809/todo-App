@@ -6,7 +6,7 @@ import { ModalButton } from "./ModalBtn";
 import { images } from "../images";
 import { ThemeColors } from "react-navigation";
 
-export const Task = ({Edit, item, selected, onPress, onLongPress, toggleTask, getId}) =>{
+export const Task = ({Edit, item, selected, onPress, onLongPress, deleteTask, toggleTask, getId}) =>{
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
@@ -75,7 +75,7 @@ export const Task = ({Edit, item, selected, onPress, onLongPress, toggleTask, ge
                   </Pressable>
                   <Pressable
                     style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible2(!modalVisible2)}
+                    onPress={deleteTask}
                   >
                     <Text style={styles.btntextStyle}>Delete</Text>
                   </Pressable>
