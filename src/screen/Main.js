@@ -55,12 +55,15 @@ function Main({navigation}) {
   const _editTask = () =>{
     navigation.navigate("Edit", {itemId: taskid})
   };
-  // task 제거 modal과 연결 필요
-  const _deleteTask = id => {
+
+  // task Modal에서 제거 
+  const _deleteTask = () => {
+    id = taskid
     const currentTasks = Object.assign({}, taskInfo);
     delete currentTasks[id];
     _saveTasks(currentTasks);
   };
+
 /* Select/Deselect */
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -88,6 +91,7 @@ const _SdeleteTask = () => {
     }
     _saveTasks(currentTasks);
   };
+  
 // 모든 task 제거
   const _deleteTaskAll = id => {
     const currentTasks = Object.assign({}, taskInfo);
@@ -109,6 +113,7 @@ const _SdeleteTask = () => {
       }
     console.log(selectedItems)
   };
+  
   function Filtering() {
     return(
       <View style={{margintop: 5,marginLeft:5, marginRight:5, width: '95%', height: 50, alignItems: 'center', flexDirection: "row"}}>
