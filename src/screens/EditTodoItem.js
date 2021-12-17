@@ -144,7 +144,7 @@ const ExportButton = ({onPressout}) => {
             <Pressable 
                 style = {[{ backgroundColor: '#00462A' }, footer.pressable]}
                 onPressOut = {onPressout}>
-                <Text style = {footer.text}> submit </Text>
+                <Text style = {footer.text}> edit </Text>
             </Pressable>
         );
 }

@@ -212,7 +212,7 @@ function TodoList({navigation}) {
           <DefaultTasks/>
           </View>
       </ViewShot>
-      <AddFloatingButton/>
+      <AddFloatingButton onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
       <ArchiveFloatingButton/>
     </View>
   );
