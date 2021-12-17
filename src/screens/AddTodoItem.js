@@ -10,8 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 
 function Addtodo({route, navigation}){
-    const random = route.params;
-    console.log(random)
+    const random = route.params || '';
     const weekday = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
     let today = new Date();
     let date = today.getFullYear()+ "-" + parseInt(today.getMonth()+1)+"-"+today.getDate().toString().padStart(2,'0') +" "+weekday[today.getDay()];

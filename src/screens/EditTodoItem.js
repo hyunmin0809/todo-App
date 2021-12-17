@@ -46,7 +46,6 @@ function Edit({route, navigation}){
     
     let currentTasks = Object.assign({}, tasks);
     const ID = itemId.itemId;
-    console.log(ID)
 
     useEffect(() => {
         const firstLoad = async () => {
