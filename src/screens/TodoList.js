@@ -6,8 +6,8 @@ import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { viewStyles } from '../styles/TodoListScreenStyles';
 
-import AddFloatingButton from '../components/AddFloatingButton';
-import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
+import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
+import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
 
