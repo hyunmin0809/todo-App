@@ -193,6 +193,7 @@ function TodoList({navigation}) {
   return (
     <View style ={ {flex:1, backgroundColor: 'white'} }>
       <Button
+<<<<<<< HEAD
         title="+"
         onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
@@ -213,6 +214,25 @@ function TodoList({navigation}) {
           </View>
       </ViewShot>
       <AddFloatingButton onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
+=======
+        title="삭제하기" //select task 제거
+        onPress={_SdeleteTask}/>
+      <Button
+        title="전체 삭제하기" //전체 task 제거
+        onPress={_deleteTaskAll}/>
+      <Button
+        title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
+        onPress={_selectAllItems} />
+      <Button
+        title="전체 해제하기" //전체 task 선택(log로만 확인 가능)
+        onPress={_deselectAllItems} />
+      <Button title="공유" onPress={()=>{}/*shareImage*/} />
+      <Filtering/>
+      <DefaultTasks/>
+      <AddFloatingButton
+        onPress={()=>navigation.navigate('AddTodoItemScreen')}
+      />
+>>>>>>> main
       <ArchiveFloatingButton/>
     </View>
   );
