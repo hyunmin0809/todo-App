@@ -9,8 +9,8 @@ import ViewShot from 'react-native-view-shot';
 import * as Sharing from "expo-sharing";
 import { theme } from '../theme';
 
-import AddFloatingButton from '../components/AddFloatingButton';
-import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
+import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
+import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
 
