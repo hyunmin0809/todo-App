@@ -6,8 +6,8 @@ import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { viewStyles } from '../styles/TodoListScreenStyles';
 
-import AddFloatingButton from '../components/AddFloatingButton';
-import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
+import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
+import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
 
@@ -163,9 +163,6 @@ function TodoList({navigation}) {
   return (
     <View style ={ {flex:1} }>
       <Button
-        title="+"
-        onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
-      <Button
         title="삭제하기" //select task 제거
         onPress={_SdeleteTask}/>
       <Button
@@ -180,7 +177,9 @@ function TodoList({navigation}) {
       <Button title="공유" onPress={()=>{}/*shareImage*/} />
       <Filtering/>
       <DefaultTasks/>
-      <AddFloatingButton />
+      <AddFloatingButton
+        onPress={()=>navigation.navigate('AddTodoItemScreen')}
+      />
       <ArchiveFloatingButton/>
     </View>
   );
