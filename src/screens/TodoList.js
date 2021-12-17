@@ -88,6 +88,10 @@ function TodoList({navigation}) {
 // select task 제거
   const _SdeleteTask = () => {
     const currentTasks = Object.assign({}, taskInfo);
+    if(Object.keys(currentTasks).length == 0 || selectedItems.length == 0){
+      alert("There is no item to delete")
+      return;
+    }
     for(var i = 0; i < selectedItems.length; i++){
       var c = selectedItems[i];
       delete currentTasks[c];
@@ -95,22 +99,31 @@ function TodoList({navigation}) {
     }
     _saveTasks(currentTasks);
   };
+
   
 // 전체 task 제거
   const _deleteTaskAll = id => {
     const currentTasks = Object.assign({}, taskInfo);
+    if(Object.keys(currentTasks).length == 0){
+      alert("There is no item to delete all")
+      return;
+    }
     if (id) {
     for(const id in currentTasks){
         delete currentTasks[id];
     }
+  }
     setSelectedItems([]);
     _saveTasks(currentTasks);
-    }
   };
 
   // 전체 task 선택
   const _selectAllItems = () => {
     const currentTasks = Object.assign({}, taskInfo);
+    if(Object.keys(currentTasks).length == 0){
+      alert("There is no item to select all")
+      return;
+    }
     for (const id in currentTasks) {
       if (!selectedItems.includes(id))
         selectedItems.push(id);
@@ -120,6 +133,11 @@ function TodoList({navigation}) {
 
   // 전체 task 선택 해제
   const _deselectAllItems = () => {
+    const currentTasks = Object.assign({}, taskInfo);
+    if(Object.keys(currentTasks).length == 0 || selectedItems.length == 0){
+      alert("There is no item to deselect all")
+      return;
+    }
     setSelectedItems([]);
   };
   
@@ -166,7 +184,7 @@ function TodoList({navigation}) {
               renderItem={({ item }) => (
                 <Task key={item.id} item={item} deleteTask={_deleteTask} toggleTask={_toggleTask} Edit={_editTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId={getId} />
               )}
-              keyExtractor={(item, index) => item.id} />
+              keyExtractor={(item, index) => index.toString()} />
         </Pressable>
     )}
     else {return(null)}
