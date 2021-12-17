@@ -1,10 +1,13 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
+import { StyleSheet, View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
 import { Task } from '../components/Task';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { viewStyles } from '../styles/TodoListScreenStyles';
+import ViewShot from 'react-native-view-shot';
+import * as Sharing from "expo-sharing";
+import { theme } from '../theme';
 
 import AddFloatingButton from '../components/AddFloatingButton';
 import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
@@ -136,6 +139,15 @@ function TodoList({navigation}) {
         </View>
     )}
 
+  const captureAndShareScreenshot = () => {
+    viewShot.current.capture().then((uri) => {
+    console.log("do something with ", uri);
+    Sharing.shareAsync("file://" + uri);
+    }),
+    (error) => console.error("Oops, snapshot failed", error);
+  };
+  
+  const viewShot = React.useRef();
     
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
@@ -154,37 +166,38 @@ function TodoList({navigation}) {
               renderItem={({ item }) => (
                 <Task key={item.id} item={item} deleteTask={_deleteTask} toggleTask={_toggleTask} Edit={_editTask} onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId={getId} />
               )}
-              keyExtractor={item => item.id} />
+              keyExtractor={(item, index) => item.id} />
         </Pressable>
     )}
     else {return(null)}
   }
 
   return (
-    <View style ={ {flex:1} }>
+    <View style ={ {flex:1, backgroundColor: 'white'} }>
       <Button
         title="+"
         onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
-      <Button
-        title="삭제하기" //select task 제거
-        onPress={_SdeleteTask}/>
-      <Button
-        title="전체 삭제하기" //전체 task 제거
-        onPress={_deleteTaskAll}/>
-      <Button
-        title="전체 선택하기" //전체 task 선택(log로만 확인 가능)
-        onPress={_selectAllItems} />
-      <Button
-        title="전체 해제하기" //전체 task 선택(log로만 확인 가능)
-        onPress={_deselectAllItems} />
-      <Button title="공유" onPress={()=>{}/*shareImage*/} />
-      <Filtering/>
-      <DefaultTasks/>
-      <AddFloatingButton />
+        <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
+        <View style={viewStyles.fixToText}> 
+          <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
+          <Text>Select All</Text></Pressable>
+          <Pressable onPress={_deselectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
+          <Text>Deselect All</Text></Pressable>
+          <Pressable onPress={_SdeleteTask} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
+          <Text>Delete</Text></Pressable>
+          <Pressable onPress={_deleteTaskAll} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
+          <Text>Delete All</Text></Pressable>
+        </View>
+        <ViewShot ref = {viewShot} options={{ format: "jpg", quality: 0.9 }}>
+          <View style={{backgroundColor: 'white'}}>
+          <Filtering/>
+          <DefaultTasks/>
+          </View>
+      </ViewShot>
+      <AddFloatingButton/>
       <ArchiveFloatingButton/>
     </View>
   );
     
 }
- 
   export default TodoList;
