@@ -8,7 +8,7 @@ export default class AddFloatingButton extends React.Component {
   render() {
     return (
       <View style={viewStyles.container_right}>
-        <TouchableOpacity onPress={() => {/*this.goAddTodoScreen()*/}}>
+        <TouchableOpacity onPress={this.props.onPress}>
           <Animated.View style={buttonStyles.button_green}>
             <AntDesign name="plus" size={28} color={theme.white} />
           </Animated.View>
@@ -16,8 +16,4 @@ export default class AddFloatingButton extends React.Component {
       </View>
     );  
   };
-
-  // goAddTodoScreen(){ 
-  //   this.props.navigation.navigate('AddTodo'); 
-  // };
 }
