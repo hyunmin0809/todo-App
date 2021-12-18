@@ -11,6 +11,13 @@ export const Task = ({gotoMap, Edit, item, index, drag, image, selected, onPress
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
 
+    function _isPicture(){
+      if(item.picture){
+        return(<Image source={{ uri: item.picture }} style={{ width: 300, height: 200 , marginBottom: 10}} />)
+      }
+      else
+        return null
+    }
     return (
         <View style={styles.centeredView}>
             {/* POPUP */}
@@ -38,7 +45,9 @@ export const Task = ({gotoMap, Edit, item, index, drag, image, selected, onPress
                     >
                     <Text style={styles.btntextStyle}>Picture</Text>
                     </Pressable>
-                    <Image source={{ uri: item.picture }} style={{ width: 300, height: 200 , marginBottom: 10}} />
+                    
+                    <_isPicture/>
+              
                     <Pressable
                     style={[styles.button, styles.blackbutton]}
                     onPress={gotoMap}
