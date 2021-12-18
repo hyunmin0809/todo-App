@@ -5,6 +5,7 @@ import right from '../assets/arrow-left.png'
 import left from '../assets/arrow-right.png'
 import gallery from '../assets/gallery.png'
 import order from '../assets/up-and-down.png'
+import mark from '../assets/pin.png'
 
 export const images = {
     completed: CheckBox,
@@ -16,4 +17,5 @@ export const images = {
     left: left,
 
     gallery: gallery,
+    mark: mark,
 };

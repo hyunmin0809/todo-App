@@ -24,6 +24,14 @@ export const buttonStyles = StyleSheet.create({
         borderRadius: 60 / 2,
         alignItems: "center",
         justifyContent: "center",
+        shadowColor: theme.black,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
     },
     button_white: {
         backgroundColor: theme.white,
@@ -34,5 +42,13 @@ export const buttonStyles = StyleSheet.create({
         justifyContent: "center",
         borderWidth: 3,
         borderColor: theme.midGray,
+        shadowColor: theme.black,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
       },
 });
