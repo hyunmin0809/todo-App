@@ -31,6 +31,7 @@ export const Task = ({gotoMap, Edit, item, index, drag, image, selected, onPress
                     <Text style={styles.modalText}>{item.task}</Text>
                     <Text style={styles.modalsubText}>{item.duedate}  {item.duetime}</Text>
                     <Text style={styles.modalsubText}>Category: {item.category}</Text>
+                    <Text style={styles.btntextStyle}>Comment: {item.comment} </Text>
                     <Pressable
                     style={[styles.button, styles.buttonFunction]}
                     onPress={() => setModalVisible(!modalVisible)}
