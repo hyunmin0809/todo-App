@@ -6,7 +6,7 @@ import { ModalButton } from "./ModalBtn";
 import { images } from "../images";
 import { ThemeColors } from "react-navigation";
 
-export const Task = ({Edit, item, index, drag, selected, onPress,  onLongPress, deleteTask, toggleTask, getId}) =>{
+export const Task = ({Edit, item, index, drag, image, selected, onPress,  onLongPress, deleteTask, toggleTask, getId}) =>{
 
     const [modalVisible, setModalVisible] = useState(false);
     const [modalVisible2, setModalVisible2] = useState(false);
@@ -37,6 +37,7 @@ export const Task = ({Edit, item, index, drag, selected, onPress,  onLongPress, 
                     >
                     <Text style={styles.btntextStyle}>Picture</Text>
                     </Pressable>
+                    <Image source={{ uri: item.picture }} style={{ width: 200, height: 200 , marginBottom: 10}} />
                     <Pressable
                     style={[styles.button, styles.blackbutton]}
                     onPress={() => Map}
