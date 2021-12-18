@@ -30,7 +30,7 @@ const [taskInfo, setTaskInfo] = useState({});
   let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today);/*오늘 이후의 item만 여기에 있음.*/
 
   useEffect(() => {
-    
+    console.log(taskInfo)
     if (isFocused) {
         const firstLoad = async () => {
             const loadedTasks = await AsyncStorage.getItem('tasks');
@@ -167,8 +167,8 @@ const [taskInfo, setTaskInfo] = useState({});
           </View>
           <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-end', flexDirection: "row" }}>
             <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('all')}}><Text style = {{fontWeight: (taskview === 'all') ? 'bold':'normal'}}>All</Text></Pressable>
-            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('completed')}}><Text style = {{fontWeight: (taskview === 'completed') ? 'bold':'normal'}}>Completed</Text></Pressable>
-            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('incompleted')}}><Text style = {{fontWeight: (taskview === 'incompleted') ? 'bold':'normal'}}>Incompleted</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('completed')}}><Text style = {{fontWeight: (taskview === 'completed') ? 'bold':'normal'}}>Complete</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('incompleted')}}><Text style = {{fontWeight: (taskview === 'incompleted') ? 'bold':'normal'}}>Incomplete</Text></Pressable>
           </View>
         </View>
     )}
@@ -180,6 +180,13 @@ const [taskInfo, setTaskInfo] = useState({});
     }),
     (error) => console.error("Oops, snapshot failed", error);
   };
+  const gotoMap = item => {navigation.navigate('MapScreen', {
+    latitude: item.latitude,
+    longitude: item.longitude,
+    screen: 'onlyView'
+   
+  })}
+  
 
   const viewShot = React.useRef();
 
@@ -201,7 +208,8 @@ const [taskInfo, setTaskInfo] = useState({});
               renderItem={({ item, index, drag}) => (
                 <Task key={item.id} item={item} index = {index} 
                 drag={drag} deleteTask={_deleteTask} toggleTask={_toggleTask} Edit={_editTask} 
-                onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId={getId} />
+                onPress={() => handleOnPress(item)} onLongPress={() => selectItems(item)} selected={getSelected(item)} getId={getId}  
+                gotoMap = {()=>gotoMap(item)} />
               )}
               onDragEnd={({ data }) => dragChange(data)}
               />
