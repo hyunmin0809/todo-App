@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useIsFocused } from '@react-navigation/native';
 import { StatusBar, List, ScrollView, StyleSheet, View, Text, Modal, TextInput, Button, FlatList, TouchableOpacity, Pressable, Dimensions } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 import { theme } from '../theme';
@@ -10,7 +11,7 @@ import CategoryInputModal from '../components/categoryContents/CategoryInputModa
 import CategoryItemButton from '../components/categoryContents/CategoryItemButton';
 
 export default function Category(){
-
+  const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
   const [categoryList, setCategoryList] = useState([]);
 
@@ -21,8 +22,10 @@ export default function Category(){
   };
 
   useEffect(() => {
-    findCategoryList();
-  }, []);
+    if (isFocused) {
+      findCategoryList();
+    }
+  }, [isFocused]);
 
   const handleOnSubmit = async (categoryItem) => {
     const categoryName = {id: Date.now(), categoryItem};
