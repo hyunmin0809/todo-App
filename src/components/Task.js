@@ -39,10 +39,10 @@ export const Task = ({Edit, item, index, drag, selected, onPress,  onLongPress, 
                     <Text style={styles.btntextStyle}>Picture</Text>
                     </Pressable>
                     <Pressable
-                    style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    style={[styles.button, styles.blackbutton]}
+                    onPress={() => Map}
                     >
-                    <Text style={styles.btntextStyle}>Location</Text>
+                    <Text style={styles.whitebtntextStyle}>Location</Text>
                     </Pressable>
                 </View>
                 </View>
@@ -194,6 +194,16 @@ const styles = StyleSheet.create({
     button: {
       borderRadius: 20,
       padding: 10,
+    },
+    blackbutton: {
+           backgroundColor: "#00462A",
+           borderRadius: 10,
+           padding: 10,
+    },
+    whitebtntextStyle: {
+            color: "white",
+            fontSize: 18,
+            textAlign: "center"
     },
     buttonOpen: {
       backgroundColor: "#E6E6E6",

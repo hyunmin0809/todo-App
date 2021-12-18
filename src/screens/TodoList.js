@@ -10,8 +10,8 @@ import * as Sharing from "expo-sharing";
 import { theme } from '../theme';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 
-import AddFloatingButton from '../components/AddFloatingButton';
-import ArchiveFloatingButton from '../components/ArchiveFloatingButton';
+import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
+import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
 const [taskInfo, setTaskInfo] = useState({});
