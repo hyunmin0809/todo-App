@@ -1,9 +1,12 @@
 /*duedate랑 due time 용 */
 
-import React, {useState} from 'react';
-import {Text, View, Pressable, StyleSheet, TextInput} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, View, Pressable, StyleSheet, TextInput, FlatList} from 'react-native';
 import { textStyles, viewStyles } from '../styles/TodoListScreenStyles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import CategoryInputModal from '../components/categoryContents/CategoryInputModal';
 
 
 export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
@@ -70,85 +73,38 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
 };
 
 
-export const Category = ({data, getData, categories, setCategories}) => {
-    const [press, setPress] = useState(false)
-    const [category, setCategory] = useState('')
-    const [loadedCategories, setLoadedCategories] = useState({
-        '1': {id: '1', text: 'study'},
-        '2': {id: '2', text: 'social'} 
+export const Category = ({data, getData}) => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [categoryList, setCategoryList] = useState([]);
+    const [loaded, setLoaded] = useState({});
+    const findCategoryList = async () => {
+        const categoryResult = await AsyncStorage.getItem('categoryList');
 
-    });
+        if(categoryResult !== null) setCategoryList(JSON.parse(categoryResult));
+    };
+   
 
+    useEffect(() => {
+        findCategoryList();
+    }, []);
+
+    const handleOnSubmit = async (categoryItem) => {
+        const categoryName = {id: Date.now(), categoryItem};
+        const updatedCategoryList = [...categoryList, categoryName];
+        setCategoryList(updatedCategoryList)
+        await AsyncStorage.setItem('categoryList', JSON.stringify(updatedCategoryList));
+    }
+      
 
     const CategoryItem = ({text}) => {
-        if(data === text){
-            return (
-                <Pressable 
-                    style = {[viewStyles.button, {marginLeft: 0, marginRight: 8, borderRadius: 5, backgroundColor: '#AFAFAF'},]}
-                    onPressOut = {()=>{getData(text)}}    
-                >
-                    <Text style = {{margin:3, color:'white'}}>{text}</Text>
-                </Pressable>
-            )
-        }
-        else{
-            return (
-                <Pressable 
-                    style = {[viewStyles.button, {marginLeft: 0, marginRight: 8, borderRadius: 5},]}
-                    onPressOut = {()=>{getData(text)}} 
-                >
-                    <Text style = {{margin:3}}>{text}</Text>
-                </Pressable>
-            )
-        }
-    }
-
-    const _saveCategory = () => {
-        
-        /*const ID = Date.now().toString ;
-         const newCategoryObject = {
-             [ID]: { id: ID, text: category},
-         };
-        setCategory({...loadedCategories,...newCategoryObject})
-        console.log(category)*/
-        setPress(false)
-    }
-
-    const _onChangeText = text =>{
-        setCategory(text);
-    }
-
-    const AddCategories = ({value, onChangeText}) => {
-        if(press === true){
-            return(
-                <View style = {{alignItems: "center", flexDirection: 'row', backgroundColor:"#E8E8E8"}}>
-                    <TextInput style ={{
-                        fontSize: 14,
-                        width: 100,
-                        height: 30,
-                        backgroundColor: "#E8E8E8"}}
-                        placeholder="  new category"
-                        placeholderTextColor= {"#898989"}
-                        maxLength={10}
-                        autoCapitalize= 'none'
-                        autoCorrect= {false}
-                        value = {value} onChangeText={onChangeText}
-                    ></TextInput>
-                    <Pressable onPressOut = {()=>{setPress(false); setCategory('');}}><Text> x </Text></Pressable>
-                    <Pressable onPressOut = {_saveCategory}><Text> submit  </Text></Pressable>
-                </View>    
-            )
-        }
-        else{
-            return(
-                <Pressable 
-                    style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
-                    onPressOut={()=>{setPress(true); console.log(loadedCategories)}}    
-                >
-                    <Text style = {{margin:3}}>+</Text>
-                </Pressable>
-            )
-        }
+        return (
+            <Pressable 
+                style = {[viewStyles.button, styles.categoryButton, (data === text) ? {backgroundColor: '#AFAFAF'}:{}]}
+                onPressOut = {()=>{getData(text)}}    
+            >
+                <Text style = {(data === text)? {margin:3, color:'white'}:{margin:3}}>{text}</Text>
+            </Pressable>
+        )
     }
 
     return(
@@ -156,14 +112,27 @@ export const Category = ({data, getData, categories, setCategories}) => {
             <View style={viewStyles.container}>
                 <Text style={[textStyles.heading, {flexDirection:"row", width: '100%'}]}>Category</Text>
             </View>
-            <View style = {{justifyContent: 'flex-start', alignItems: "center", width: '100%', flexDirection: 'row', marginTop: 10,}}>
-                <View style = {{flexDirection:"row", height: 30}}>
-                    {Object.values(loadedCategories).map(item => (<CategoryItem key = {item.id} text = {item.text}/>))}
-                </View>
-                <AddCategories value = {category} onChangeText={_onChangeText}/>   
+            <View style = {{justifyContent: 'flex-start', alignItems: "center", width: '100%', flexDirection: 'row', marginTop: 10}}>
+                <FlatList 
+                    data={categoryList} 
+                    numColumns={6}
+                    keyExtractor={item => item.id.toString()}
+                    columnWrapperStyle={{marginBottom: 5}}
+                    renderItem={({item}) => <CategoryItem text={item.categoryItem.toString()}/>}
+                />
+                <Pressable 
+                    style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
+                    onPressOut={()=>setModalVisible(true)}    
+                >
+                    <Text style = {{margin:3}}>+</Text>
+                </Pressable>
+                <CategoryInputModal 
+                    visible={modalVisible} 
+                    onClose={() => setModalVisible(false)}
+                    onSubmit={handleOnSubmit}
+                />
             </View>
         </View>
-    
       
     );
 };
@@ -183,25 +152,10 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginTop: 22
     },
-    centeredView: {
-        flex: 1,
-        justifyContent: "flex-start",
-        alignItems: "flex-end",
-      },
-    modal: {
-        position: "absolute",
-        top: 100,
-        backgroundColor: '#E6E6E6',
-        borderRadius: 10,
-        padding: 20,
-        alignItems: "center",
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
+    categoryButton: {
+        marginLeft: 0, 
+        marginRight: 8, 
+        borderRadius: 5
     },
+   
 });
