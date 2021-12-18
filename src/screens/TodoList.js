@@ -15,7 +15,7 @@ import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
 import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
-const [taskInfo, setTaskInfo] = useState({});
+  const [taskInfo, setTaskInfo] = useState({});
   const [isEmpty, setIsEmpty] = useState(true);
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();

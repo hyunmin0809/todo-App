@@ -33,24 +33,34 @@ class Search extends Component {
 constructor(props) {
 	super(props);
 	this.state = {
-	loading: false,
-	data: DATA,
-	error: null,
-	searchValue: "",
+        loading: false,
+        data: null,
+        error: null,
+        searchValue: "",
 	};
 	this.arrayholder = DATA;
 }
 
 searchFunction = (text) => {
-	const updatedData = this.arrayholder.filter((item) => {
-	const item_data = `${item.task.toUpperCase()})`;
-	const text_data = text.toUpperCase();
-	return item_data.indexOf(text_data) > -1;
-	});
-	this.setState({ data: updatedData, searchValue: text });
+    if (text) {
+        const updatedData = this.arrayholder.filter((item) => {
+    	const item_data = `${item.task.toUpperCase()})`;
+    	const text_data = text.toUpperCase();
+    	return item_data.indexOf(text_data) > -1;
+    	});
+    	this.setState({ data: updatedData, searchValue: text });
+    } else {
+        const updatedData = this.arrayholder.filter((item) => {
+        const item_data = `${item.task.toUpperCase()})`;
+        const text_data = text.toUpperCase();
+        return item_data.indexOf(text_data) > -1;
+        });
+        this.setState({ data: null, searchValue: text });
+    }
 };
 
 render() {
+
 	return (
 	<View style={styles.container}>
 		<SearchBar
@@ -75,7 +85,7 @@ export default Search;
 
 const styles = StyleSheet.create({
 container: {
-	padding: 2,
+    marginBottom: 0,
 },
 item: {
 	backgroundColor: "black",
