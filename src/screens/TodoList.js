@@ -19,6 +19,7 @@ const [taskInfo, setTaskInfo] = useState({});
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
   const [taskid, setTaskid] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getId = (id) =>{
     setTaskid(id);
@@ -37,10 +38,14 @@ const [taskInfo, setTaskInfo] = useState({});
             if(!loadedTasks){setIsEmpty(true)}
             else{setIsEmpty(false)}
         }
-          firstLoad();
+      firstLoad();
     }
   }, [isFocused]);
       
+  useEffect(()=>{
+    return () => setLoading(false);
+  },[]);
+
   const _saveTasks = async tasks => {
       try{
           await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
@@ -149,6 +154,7 @@ const [taskInfo, setTaskInfo] = useState({});
   const dragChange = (dragList) => {
     setTaskInfo(dragList);
     _saveTasks(dragList);
+    setLoading(true);
   }
 
   function Filtering() {
