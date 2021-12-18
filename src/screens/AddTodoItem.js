@@ -131,7 +131,16 @@ function Addtodo({route, navigation}){
                 
             {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
             <View style = {viewStyles.footer}>
-                <ResetButton onPressout = {() => {navigation.push('AddTodoItemScreen')}}/>
+                <ResetButton onPressout = {() => {
+                    setTask(random['random']||'')
+                    setDuedate(date)
+                    setDuetime(time)
+                    setComment('')
+                    setCategory('')
+                    setPicture('')
+                    setLocation({
+                        latitude: 37.55676762137174,
+                        longitude: 126.9458908645506,})}}/>
                 <ExportButton onPressout = {PressSubmit}/>
             </View>
 

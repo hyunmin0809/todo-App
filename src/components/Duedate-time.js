@@ -169,6 +169,7 @@ export const Category = ({data, getData, categories, setCategories}) => {
 };
 
 
+
 const Box = () => {
     return(
         <View style = {[viewStyles.button, {height: 30, width: 30, marginLeft: 0}]}></View>
