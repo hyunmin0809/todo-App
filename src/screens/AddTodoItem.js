@@ -8,7 +8,7 @@ import { GalleryPicker, Map} from '../components/Picture'
 import {GoogleMap} from '../components/Location'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import CategoryInputModal from '../components/categoryContents/CategoryInputModal';
 
 function Addtodo({route, navigation}){
     const isFocused = useIsFocused();
@@ -40,10 +40,6 @@ function Addtodo({route, navigation}){
         setDuetime(data2);
     }
 
-    const getData3 = (data3) => {
-        setCategories(data3);
-    }
-
     const taskChangetext = text =>{ /*task에 text가 변할때마다 task에 그 값을 넣어줌 */
         setTask(text);
     }
@@ -52,7 +48,6 @@ function Addtodo({route, navigation}){
         setComment(text);
     }
 
-    const [categories, setCategories] = useState({})
     const [tasks, setTasks] = useState({}) /*최종으로 넘길 값*/
     
     useEffect(() => {
@@ -60,8 +55,6 @@ function Addtodo({route, navigation}){
             try {
             const loadedTasks = await AsyncStorage.getItem('tasks');
             setTasks(JSON.parse(loadedTasks || '{}'));
-            const loadedCategories = await AsyncStorage.getItem('categories')
-            setCategories(JSON.parse(loadedCategories || '{}'));
             } catch (err) {
             console.log(err);
             }
@@ -85,15 +78,6 @@ function Addtodo({route, navigation}){
             console.error(e);
         }
     };
-    
-    const _saveCategories = async categories => {
-        try {
-            await AsyncStorage.setItem('categories', JSON.stringify(categories));
-            setCategories(categories)
-        } catch(e) {
-            console.error(e);
-        }
-    }
 
     function PressSubmit() {
         const ID = Date.now().toString();
@@ -131,7 +115,16 @@ function Addtodo({route, navigation}){
                 
             {/*여기 부터 footer 버튼(reset,submit 버튼) 부분*/}
             <View style = {viewStyles.footer}>
-                <ResetButton onPressout = {() => {navigation.push('AddTodoItemScreen')}}/>
+                <ResetButton onPressout = {() => {
+                    setTask(random['random']||'')
+                    setDuedate(date)
+                    setDuetime(time)
+                    setComment('')
+                    setCategory('')
+                    setPicture('')
+                    setLocation({
+                        latitude: 37.55676762137174,
+                        longitude: 126.9458908645506,})}}/>
                 <ExportButton onPressout = {PressSubmit}/>
             </View>
 
