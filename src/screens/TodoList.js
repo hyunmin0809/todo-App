@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { StyleSheet, View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
 import { Task } from '../components/Task';
+import Search from '../components/SearchBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { viewStyles } from '../styles/TodoListScreenStyles';
 import ViewShot from 'react-native-view-shot';
@@ -14,7 +15,7 @@ import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
 import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
-const [taskInfo, setTaskInfo] = useState({});
+  const [taskInfo, setTaskInfo] = useState({});
   const [isEmpty, setIsEmpty] = useState(true);
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
@@ -235,6 +236,7 @@ const [taskInfo, setTaskInfo] = useState({});
         <ViewShot ref = {viewShot} options={{ format: "jpg", quality: 0.9 }}>
           <View style={{backgroundColor: 'white'}}>
           <Filtering/>
+          <Search/>
           <DefaultTasks/>
           </View>
       </ViewShot>
