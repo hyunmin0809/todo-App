@@ -213,9 +213,6 @@ const [taskInfo, setTaskInfo] = useState({});
 
   return (
     <View style ={ {flex:1, backgroundColor: 'white'} }>
-      <Button
-        title="+"
-        onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
         <View style={viewStyles.fixToText}> 
           <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
