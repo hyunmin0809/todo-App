@@ -92,8 +92,8 @@ export const Task = ({Edit, item, index, drag, selected, onPress,  onLongPress, 
                 id = {item.id} index = {item.index} onLongPress={onLongPress} onPress={onPress} onPress={() => {setModalVisible(true)}}
             >
                 <View style = {itemStyle.container}>
-                    <Pressable style={[styles.icon, styles.buttonOpen]}>
-                      <Image source={images.order} style={IconStyle.icon}/>
+                    <Pressable style={[styles.icon, styles.buttonOpen, {paddingLeft:10,}]}>
+                      <Image source={images.order} style={{ height:20, width:20}}/>
                     </Pressable>
                     <IconButton style = {[{flex: 1}]} type = {item.completed ? images.completed : images.uncompleted} 
                     id = {item.id} onPressOut={toggleTask}/>
