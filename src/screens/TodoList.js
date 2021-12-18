@@ -39,7 +39,6 @@ const [taskInfo, setTaskInfo] = useState({});
             else{setIsEmpty(false)}
         }
       firstLoad();
-      console.log(taskInfo)
     }
   }, [isFocused]);
       
@@ -167,9 +166,9 @@ const [taskInfo, setTaskInfo] = useState({});
             </View>
           </View>
           <View style={{width: '50%', justifyContent: 'center', alignItems: 'flex-end', flexDirection: "row" }}>
-            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('all')}}><Text>All</Text></Pressable>
-            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('completed')}}><Text>Completed</Text></Pressable>
-            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('incompleted')}}><Text>Incompleted</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('all')}}><Text style = {{fontWeight: (taskview === 'all') ? 'bold':'normal'}}>All</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('completed')}}><Text style = {{fontWeight: (taskview === 'completed') ? 'bold':'normal'}}>Completed</Text></Pressable>
+            <Pressable style = {{margin: 10}} onPress={()=>{setTaskview('incompleted')}}><Text style = {{fontWeight: (taskview === 'incompleted') ? 'bold':'normal'}}>Incompleted</Text></Pressable>
           </View>
         </View>
     )}
