@@ -76,16 +76,10 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
 export const Category = ({data, getData}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [categoryList, setCategoryList] = useState([
-        {"id":0,"categoryItem":"School"},
-        {"id":1,"categoryItem":"Project"},
-        {"id":2,"categoryItem":"Hobby"},
-        {"id":3,"categoryItem":"important"},
-        {"id":4,"categoryItem":"Activity"},
-        {"id":5,"categoryItem":"Family"},
-        {"id":6,"categoryItem":"Anniversary"},
-        {"id":7,"categoryItem":"job"},
-        {"id":8,"categoryItem":"exam"},
-        {"id":9,"categoryItem":"etc"},
+        {"id":0,"categoryItem":"study"},
+        {"id":1,"categoryItem":"anniversary"},
+        {"id":2,"categoryItem":"hobby"},
+        {"id":3,"categoryItem":"etc"},
     ]);
     
    
