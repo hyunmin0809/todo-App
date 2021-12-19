@@ -1,7 +1,7 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { Picker, StyleSheet, View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
+import { Picker, TouchableWithoutFeedback, StyleSheet, View, Modal, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
 import { Task } from '../components/Task';
 import Search from '../components/SearchBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,6 +11,7 @@ import * as Sharing from "expo-sharing";
 import { theme } from '../theme';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { SearchBar } from 'react-native-elements';
+import {SortModal} from '../components/SortModal';
 
 import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
 import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
@@ -259,6 +260,8 @@ const DueDate= () => {
     else {return(null)}
   }
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style ={ {flex:1, backgroundColor: 'white'} }>
       <SearchBar
@@ -270,10 +273,11 @@ const DueDate= () => {
           value={search}
         />
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
-        <Button color = "#00462A" title="sort duedate" onPress={DueDate} />
-        <Button color = "#00462A" title="sort early AdDdate" onPress={EaddedDate} />
-        <Button color = "#00462A" title="sort Late AdDdate" onPress={LaddedDate} />
-        <View style={viewStyles.fixToText}> 
+        <SortModal duedate={DueDate} eaddeddate={EaddedDate} laddeddate={LaddedDate}/>
+        {/*<Button color = "#00462A" title="sort duedate" onPress={DueDate} />*/}
+        {/*<Button color = "#00462A" title="sort early AdDdate" onPress={EaddedDate} />*/}
+        {/*<Button color = "#00462A" title="sort Late AdDdate" onPress={LaddedDate} />*/}
+        <View style={viewStyles.fixToText}>
           <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
           <Text>Select All</Text></Pressable>
           <Pressable onPress={_deselectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
