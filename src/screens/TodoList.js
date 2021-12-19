@@ -1,7 +1,7 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { StyleSheet, View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
 import { Task } from '../components/Task';
 import Search from '../components/SearchBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,12 +10,14 @@ import ViewShot from 'react-native-view-shot';
 import * as Sharing from "expo-sharing";
 import { theme } from '../theme';
 import DraggableFlatList from 'react-native-draggable-flatlist';
+import { SearchBar } from 'react-native-elements';
 
 import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
 import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloatingButton';
 
 function TodoList({navigation}) {
   const [taskInfo, setTaskInfo] = useState({});
+  const [search, setSearch] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
@@ -155,9 +157,24 @@ function TodoList({navigation}) {
   
   const dragChange = (dragList) => {
     setTaskInfo(dragList);
-    _saveTasks(dragList);
+    _saveTasks(dragList);s
     setLoading(true);
   }
+
+  const searchTodo = (text) =>{
+    if(text == '' ){
+      setTaskInfo(taskInfo)
+      setSearch(text)
+    } else{
+      const filteredItems = Object.values(taskInfo).filter((item)=>{
+        if(item.task.toLowerCase().includes(text.toLowerCase())){
+            return item
+        }
+    })
+    setTaskInfo(filteredItems);
+    setSearch(text); 
+    }
+};
 
   function Filtering() {
     return(
@@ -201,8 +218,8 @@ function TodoList({navigation}) {
       }
       else if(taskview === 'incompleted'){
         listview = Object.values(sorted).filter(task => task.completed === false );
-      }
-      
+      }    
+
       return (
         <Pressable onPress={deSelectItems} >
             <DraggableFlatList
@@ -221,9 +238,16 @@ function TodoList({navigation}) {
     else {return(null)}
   }
 
-
   return (
     <View style ={ {flex:1, backgroundColor: 'white'} }>
+      <SearchBar
+          lightTheme
+          searchIcon={{ size: 24 }}
+          onChangeText={(text) => searchTodo(text)}
+          onClear={(text) => searchTodo('')}
+          placeholder="Search Todo item..."
+          value={search}
+        />
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
         <View style={viewStyles.fixToText}> 
           <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
@@ -246,6 +270,12 @@ function TodoList({navigation}) {
       <ArchiveFloatingButton onPress = {() => {setIsArchive(!isArchive); console.log(isArchive)}}/>
     </View>
   );
-    
-}
+};
+
+const styles = StyleSheet.create({
+  itemStyle: {
+    padding: 10,
+  },
+});
+  
   export default TodoList;
