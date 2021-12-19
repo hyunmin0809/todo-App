@@ -236,7 +236,7 @@ function TodoList({navigation}) {
         <ViewShot ref = {viewShot} options={{ format: "jpg", quality: 0.9 }}>
           <View style={{backgroundColor: 'white'}}>
           <Filtering/>
-          <Search/>
+          {/*<Search/>*/}
           <DefaultTasks/>
           </View>
       </ViewShot>
