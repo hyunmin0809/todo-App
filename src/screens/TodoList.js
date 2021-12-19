@@ -235,10 +235,10 @@ const DueDate= () => {
       const currentTasks = Object.assign({}, taskInfo);
       isArchive ? (listview = currentTasks) : (listview = sorted)
       if(taskview === 'completed'){
-        listview = Object.values(sorted).filter(task => task.completed === true );
+        listview = Object.values(listview).filter(task => task.completed === true );
       }
       else if(taskview === 'incompleted'){
-        listview = Object.values(sorted).filter(task => task.completed === false );
+        listview = Object.values(listview).filter(task => task.completed === false );
       }    
 
       return (
