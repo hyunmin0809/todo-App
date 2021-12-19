@@ -36,7 +36,7 @@ export function DrawerContent(props) {
                             label="To-do list"
                             onPress={() => {props.navigation.navigate("To-do List")}}
                         />
-                        <DrawerItem
+                        {/* <DrawerItem
                             icon={({color, size}) => (
                                 <MaterialIcons 
                                     name="category" 
@@ -46,7 +46,7 @@ export function DrawerContent(props) {
                             )}
                             label="Category"
                             onPress={() => {props.navigation.navigate("Category")}}
-                        />
+                        /> */}
                         <DrawerItem
                             icon={({color, size}) => (
                                 <MaterialCommunityIcons 
