@@ -34,7 +34,6 @@ function TodoList({navigation}) {
   let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today);/*오늘 이후의 item만 여기에 있음.*/
 
   useEffect(() => {
-    console.log(taskInfo)
     if (isFocused) {
         const firstLoad = async () => {
             const loadedTasks = await AsyncStorage.getItem('tasks');

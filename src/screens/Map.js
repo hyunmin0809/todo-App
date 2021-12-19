@@ -35,37 +35,58 @@ export default function Map({navigation, route}) {
       }
     }
     
+    if (screen !== 'onlyView'){
+      return (
+        <>
+          <MapView
+            initialRegion={initialRegion}
+            style={[styles.map]}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            onRegionChange={region=>{
+              setLocation({
+                latitude: region.latitude,
+                longitude: region.longitude,
+              });
+            }}
+            onRegionChageComplete = {region => {
+              setLocation({
+                latitude: region.latitude,
+                longitude: region.longitude,
+              })
+            }}
+          >
+            <MapView.Marker 
+              coordinate={{ latitude: location.latitude, longitude: location.longitude,}}
+            />
+            <Text>{location.latitude}, {location.longitude}</Text>
+          </MapView>
 
-    return (
-      <>
-        <MapView
-           initialRegion={initialRegion}
-           style={[styles.map]}
-           provider={PROVIDER_GOOGLE}
-           showsUserLocation={true}
-           showsMyLocationButton={true}
-           onRegionChange={region=>{
-            setLocation({
-              latitude: region.latitude,
-              longitude: region.longitude,
-            });
-          }}
-          onRegionChageComplete = {region => {
-            setLocation({
-              latitude: region.latitude,
-              longitude: region.longitude,
-            })
-          }}
-        >
-          <MapView.Marker 
-            coordinate={{ latitude: location.latitude, longitude: location.longitude,}}
-          />
-          <Text>{location.latitude}, {location.longitude}</Text>
-        </MapView>
+          <_isButton/>
+        </>
+      );
+    }
+    else if(screen === 'onlyView'){
+      return (
+        <>
+          <MapView
+            initialRegion={initialRegion}
+            style={[styles.map]}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+          >
+            <MapView.Marker 
+              coordinate={{ latitude: location.latitude, longitude: location.longitude,}}
+            />
+            <Text>{location.latitude}, {location.longitude}</Text>
+          </MapView>
 
-        <_isButton/>
-      </>
-    );
+          <_isButton/>
+        </>
+      );
+    }
   }
 
   const ConfirmButton = ({onPressout, text}) => {

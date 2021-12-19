@@ -97,16 +97,21 @@ function Edit({route, navigation}){
     };
     
     function PressSubmit() {
-        for (const C_id in currentTasks)
-                if (currentTasks[C_id].id == ID)
-                    ID = C_id
-        delete currentTasks[ID]
-        const newTaskObject = {
-            [ID]: { id: itemId.itemId, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, latitude:location.latitude, longitude:location.longitude ,completed: false },
-        };
-        _saveTasks({...currentTasks, ...newTaskObject});
-        navigation.navigate('TodoListScreen');
-        setLoading(true)
+        if(task.length === 0){
+            alert('you should type your task name')
+        }
+        else{
+            for (const C_id in currentTasks)
+                    if (currentTasks[C_id].id == ID)
+                        ID = C_id
+            delete currentTasks[ID]
+            const newTaskObject = {
+                [ID]: { id: itemId.itemId, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, latitude:location.latitude, longitude:location.longitude ,completed: false },
+            };
+            _saveTasks({...currentTasks, ...newTaskObject});
+            navigation.navigate('TodoListScreen');
+            setLoading(true)
+        }
     }
 
 
