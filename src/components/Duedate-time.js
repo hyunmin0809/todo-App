@@ -105,7 +105,7 @@ export const Category = ({data, getData}) => {
                 <FlatList 
                     data={categoryList} 
                     numColumns={6}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => item.id ? item.id.toString() : ""}
                     columnWrapperStyle={{marginBottom: 5}}
                     renderItem={({item}) => <CategoryItem text={item.categoryItem.toString()}/>}
                 />

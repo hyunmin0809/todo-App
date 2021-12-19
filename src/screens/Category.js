@@ -4,8 +4,6 @@ import { StatusBar, List, ScrollView, StyleSheet, View, Text, Modal, TextInput, 
 import { AntDesign } from "@expo/vector-icons";
 import { theme } from '../theme';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import AddFloatingButton from '../components/floatingButtons/AddFloatingButton';
 import CategoryInputModal from '../components/categoryContents/CategoryInputModal';
 import CategoryItemButton from '../components/categoryContents/CategoryItemButton';
@@ -13,82 +11,53 @@ import CategoryItemButton from '../components/categoryContents/CategoryItemButto
 export default function Category(){
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
-  const [categoryList, setCategoryList] = useState([]);
-
-  const findCategoryList = async () => {
-    const categoryResult = await AsyncStorage.getItem('categoryList');
-    console.log(categoryResult)
-    if(categoryResult !== null) setCategoryList(JSON.parse(categoryResult));
-  };
-
-  useEffect(() => {
-    if (isFocused) {
-      findCategoryList();
-    }
-  }, [isFocused]);
-
-  const handleOnSubmit = async (categoryItem) => {
-    const categoryName = {id: Date.now(), categoryItem};
-    const updatedCategoryList = [...categoryList, categoryName];
-    setCategoryList(updatedCategoryList)
-    await AsyncStorage.setItem('categoryList', JSON.stringify(updatedCategoryList));
-  }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.flatlistcontainer}>
-        <FlatList 
-          data={categoryList} 
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: 'space-between', margin: 35, marginTop: 15, marginBottom: 15}}
-          keyExtractor={item => item.id ? item.id.toString() : ""}
-          renderItem={({item}) => <CategoryItemButton item={item}/>}
-        />
-        {!categoryList.length ? (
-          <View>
-            <Text>Add Categories</Text>
-          </View>
-        ) : null}
+  const [categoryList, setCategoryList] = useState([
+      {"id":0,"categoryItem":"study"},
+      {"id":1,"categoryItem":"anniversary"},
+      {"id":2,"categoryItem":"hobby"},
+      {"id":3,"categoryItem":"etc"},
+  ]);
+  const CategoryItem = ({categoryItem, onPress}) =>{
+    return (
+      <View>
+        <Pressable style = {itemStyle.container}><Text style = {itemStyle.contents}>{categoryItem}</Text></Pressable>
       </View>
+    )
+  }
+  
+  return(
+    <>
+      <CategoryItem categoryItem = 'study'/>
+      <CategoryItem categoryItem = 'anniversary'/>
+      <CategoryItem categoryItem = 'hobby'/>
+      <CategoryItem categoryItem = 'etc'/>
+    </>
 
-      <AddFloatingButton 
-        onPress={()=>setModalVisible(true)}
-      />
-
-      <CategoryInputModal 
-        visible={modalVisible} 
-        onClose={() => setModalVisible(false)}
-        onSubmit={handleOnSubmit}
-      />
-    </View>
   );
 }
 
-const styles = StyleSheet.create({
+const itemStyle = StyleSheet.create({
   container: {
-    flex:1,
-    backgroundColor: theme.white,
-    alignContent:'center', 
-    justifyContent: 'center'
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      backgroundColor: '#E6E6E6',
+      width: '100%',
+      height: 120,
+      marginTop: 20,
   },
-  flatlistcontainer: {
-    flex:1,
-    backgroundColor: theme.white,
-    alignContent:'center', 
-    justifyContent: 'center',
+  contents: {
+      marginLeft: 35,
+      alignItems: 'flex-start', 
+      fontSize: 30,
+      color: '#00462A',
   },
-  item: {
-    flex: 1,
-    marginHorizontal: 10,
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: 'pink',
-    fontSize: 24,
+  taskfont: {
+      fontSize: 60,
+      color: '#00462A',
   },
-  content: {
-    padding: 40,
+  datefont: {
+      fontSize: 16,
+      color: '#595959',
   },
-  list: {
-    marginTop: 20,
-  }
 });
