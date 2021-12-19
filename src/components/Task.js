@@ -87,12 +87,7 @@ export const Task = ({gotoMap, Edit, item, index, drag, image, selected, onPress
                   >
                     <Text style={styles.btntextStyle}>Delete</Text>
                   </Pressable>
-                  <Pressable
-                    style={[styles.button, styles.buttonFunction]}
-                    onPress={() => setModalVisible2(!modalVisible2)}
-                  >
-                    <Text style={styles.btntextStyle}>Share</Text>
-                  </Pressable>
+                 
                 </View>
               </View>
             </TouchableWithoutFeedback>
