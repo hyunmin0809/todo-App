@@ -1,14 +1,12 @@
 /*메인화면*/
 import React, {useState, useEffect} from 'react';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { Picker, TouchableWithoutFeedback, StyleSheet, View, Modal, Text, Button, ScrollView, Pressable, FlatList } from 'react-native';
+import { View, Modal, Text, Button, ScrollView, Pressable, } from 'react-native';
 import { Task } from '../components/Task';
-import Search from '../components/SearchBar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { viewStyles } from '../styles/TodoListScreenStyles';
 import ViewShot from 'react-native-view-shot';
 import * as Sharing from "expo-sharing";
-import { theme } from '../theme';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { SearchBar } from 'react-native-elements';
 import {SortModal} from '../components/SortModal';
@@ -19,6 +17,7 @@ import ArchiveFloatingButton from '../components/floatingButtons/ArchiveFloating
 function TodoList({navigation}) {
   const [taskInfo, setTaskInfo] = useState({});
   const [search, setSearch] = useState('');
+  const [searchItem, setSearchItem] = useState([]);
   const [isEmpty, setIsEmpty] = useState(true);
   const [taskview, setTaskview] = useState('all')
   const isFocused = useIsFocused();
@@ -164,7 +163,7 @@ function TodoList({navigation}) {
 
   const searchTodo = (text) =>{
     if(text == '' ){
-      setTaskInfo(taskInfo)
+      setTaskview('ALL')
       setSearch(text)
     } else{
       const filteredItems = Object.values(taskInfo).filter((item)=>{
@@ -172,8 +171,9 @@ function TodoList({navigation}) {
             return item
         }
     })
-    setTaskInfo(filteredItems);
-    setSearch(text); 
+    setSearch(text);
+    setTaskview('searched')
+    setSearchItem(filteredItems); 
     }
 };
 
@@ -238,9 +238,12 @@ const DueDate= () => {
       if(taskview === 'completed'){
         listview = Object.values(listview).filter(task => task.completed === true );
       }
-      else if(taskview === 'incompleted'){
-        listview = Object.values(listview).filter(task => task.completed === false );
-      }    
+      if(taskview === 'incompleted'){
+        listview = Object.values(sorted).filter(task => task.completed === false );
+      }
+      else if(taskview === 'searched'){
+        listview = Object.values(searchItem);
+      } 
 
       return (
         <Pressable onPress={deSelectItems} >
@@ -274,9 +277,6 @@ const DueDate= () => {
         />
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
         <SortModal duedate={DueDate} eaddeddate={EaddedDate} laddeddate={LaddedDate}/>
-        {/*<Button color = "#00462A" title="sort duedate" onPress={DueDate} />*/}
-        {/*<Button color = "#00462A" title="sort early AdDdate" onPress={EaddedDate} />*/}
-        {/*<Button color = "#00462A" title="sort Late AdDdate" onPress={LaddedDate} />*/}
         <View style={viewStyles.fixToText}>
           <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
           <Text>Select All</Text></Pressable>
@@ -299,11 +299,5 @@ const DueDate= () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  itemStyle: {
-    padding: 10,
-  },
-});
   
   export default TodoList;
