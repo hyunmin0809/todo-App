@@ -21,6 +21,7 @@ function TodoList({navigation}) {
   const isFocused = useIsFocused();
   const [taskid, setTaskid] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isArchive, setIsArchive] = useState(false);
 
   const getId = (id) =>{
     setTaskid(id);
@@ -185,7 +186,6 @@ function TodoList({navigation}) {
     latitude: item.latitude,
     longitude: item.longitude,
     screen: 'onlyView'
-   
   })}
   
 
@@ -193,7 +193,9 @@ function TodoList({navigation}) {
 
   function DefaultTasks() { /*오늘 이후의 것만 나옴 */
     if(isEmpty === false){
-      let listview = sorted
+      let listview
+      const currentTasks = Object.assign({}, taskInfo);
+      isArchive ? (listview = currentTasks) : (listview = sorted)
       if(taskview === 'completed'){
         listview = Object.values(sorted).filter(task => task.completed === true );
       }
@@ -241,7 +243,7 @@ function TodoList({navigation}) {
           </View>
       </ViewShot>
       <AddFloatingButton onPress={()=>navigation.navigate('AddTodoItemScreen')}/>
-      <ArchiveFloatingButton/>
+      <ArchiveFloatingButton onPress = {() => {setIsArchive(!isArchive); console.log(isArchive)}}/>
     </View>
   );
     

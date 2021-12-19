@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import { ListItem, SearchBar } from "react-native-elements";
-import filter from "lodash.filter";
+// import React, { Component } from "react";
+// import { StyleSheet, Text, View, FlatList } from "react-native";
+// import { ListItem, SearchBar } from "react-native-elements";
+// import filter from "lodash.filter";
 
+/*
 import {DefaultTasks} from '../screens/TodoList';
 
 const DATA = [
@@ -96,4 +97,4 @@ itemtxt: {
     color: "white",
     fontSize: 20,
 },
-});
+});*/
