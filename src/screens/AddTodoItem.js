@@ -22,7 +22,7 @@ function Addtodo({route, navigation}){
     const [task, setTask] = useState(random['random']||'')/*task 변수*/
     const [duedate, setDuedate] = useState(date) /*duedate 변수*/
     const [duetime, setDuetime] = useState(time) /*duetime 변수*/
-    const [category, setCategory] = useState('') /*선택한 category 변수*/
+    const [category, setCategory] = useState('etc') /*선택한 category 변수*/
     const [comment, setComment] = useState('')/*comment 변수 */
     const [picture, setPicture] = useState('') /*사진 url*/
     const [location, setLocation] = useState({
@@ -120,7 +120,7 @@ function Addtodo({route, navigation}){
                     setDuedate(date)
                     setDuetime(time)
                     setComment('')
-                    setCategory('')
+                    setCategory('etc')
                     setPicture('')
                     setLocation({
                         latitude: 37.55676762137174,
