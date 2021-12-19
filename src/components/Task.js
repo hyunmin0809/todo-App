@@ -87,7 +87,7 @@ export const Task = ({gotoMap, Edit, item, index, drag, image, selected, onPress
                   >
                     <Text style={styles.btntextStyle}>Delete</Text>
                   </Pressable>
-                 
+
                 </View>
               </View>
             </TouchableWithoutFeedback>
