@@ -49,12 +49,7 @@ export const SortModal = ({duedate, eaddeddate, laddeddate}) =>{
                   >
                     <Text style={styles.btntextStyle}>Sort Late AddDate</Text>
                   </Pressable>
-                  <Pressable
-                   style={[styles.button, styles.blackbutton]}
-                   onPress={() => setModalVisible(!modalVisible)}
-                   >
-                  <Text style={styles.whitebtntextStyle}>Complete</Text>
-                  </Pressable>
+
                 </View>
               </View>
             </TouchableWithoutFeedback>
@@ -124,9 +119,10 @@ const styles = StyleSheet.create({
 
     centeredView: {
       flex: 1,
-      justifyContent: "center",
+      justifyContent: "flex-start",
       alignItems: "center",
-//      position:"absolute",
+      marginTop: 70,
+      // position:"absolute",
       // top: 100,
       // right: 0,
     },
