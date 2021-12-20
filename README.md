@@ -37,3 +37,6 @@
 - [Search for specific to-do items with a keyword](https://snack.expo.dev/embedded/@aboutreact/example-of-search-bar-in-react-native?iframeId=ewbug1wk1e&preview=true&platform=ios&theme=dark)
 - [using Map](https://dev-yakuza.posstree.com/ko/react-native/react-native-maps/)
 - [Pick image from gallery](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
+
+## Presentation
+https://drive.google.com/file/d/14MvzCSiJUiL5ulszlsfQStUqaN3_PI0W/view?usp=sharing
