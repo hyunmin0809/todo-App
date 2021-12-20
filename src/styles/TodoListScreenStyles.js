@@ -27,6 +27,10 @@ export const viewStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
       },
+      fixButton:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      },
 });
 
 export const textStyles = StyleSheet.create({

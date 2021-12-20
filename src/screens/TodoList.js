@@ -265,7 +265,7 @@ const DueDate= () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style ={ {flex:1, backgroundColor: 'white'} }>
+    <View style ={{flex:1, backgroundColor: 'white'}}>
       <SearchBar
           lightTheme
           searchIcon={{ size: 24 }}
@@ -274,8 +274,14 @@ const DueDate= () => {
           placeholder="Search Todo item..."
           value={search}
         />
+        <View style={{flexDirection: 'row', paddingLeft: 10, padding: 10}}>
+        <View style={{paddingRight: 10, flex: 1}}>
         <Button color = "#00462A" title="Share My Todo List" onPress={captureAndShareScreenshot} />
+        </View>
+        <View style={{flex: 0.3}}>
         <SortModal duedate={DueDate} eaddeddate={EaddedDate} laddeddate={LaddedDate}/>
+        </View>
+        </View>
         <View style={viewStyles.fixToText}>
           <Pressable onPress={_selectAllItems} style={({ pressed }) => [{backgroundColor: pressed ? 'rgba(0, 70, 42, 0.2)' : 'white'}, viewStyles.wrapperCustom]}>
           <Text>Select All</Text></Pressable>

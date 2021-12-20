@@ -65,7 +65,7 @@ export const SortModal = ({duedate, eaddeddate, laddeddate}) =>{
                         setModalVisible(true)
                       }}
                     >
-                    <Text style={styles.whiteText}>SORT TODO ITEMS</Text>
+                    <Text style={styles.whiteText}>SORT</Text>
                     </Pressable>
                 </View>
             </TouchableOpacity>

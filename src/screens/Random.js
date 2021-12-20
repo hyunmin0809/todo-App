@@ -11,7 +11,7 @@ export default class RoundButton extends Component{
                 <Text style={textStyles.title}> CLICK THE BUTTON </Text>
                 <Text style={textStyles.title}> BELOW! </Text>
                 <TouchableOpacity style={buttonStyles.button} onPress={() => this.goRandomDScreen()}>
-                    <Text style={buttonStyles.title}>RANDOM GOAL</Text>
+                    <Text style={buttonStyles.title}>RANDOM TODO</Text>
                 </TouchableOpacity>
             </View>
          );
