@@ -23,6 +23,7 @@
 - @react-native-community/datetimepicker
 - react-native-maps (use google api)
 - expo-image-picker
+- expo-permissions
 - react-native-draggable-flatlist (Change the order of to-do items)
 - react-native-elements (Search for specific to-do items with a keyword)
 - react-native-view-shot (Caputre image for Sharing the to-do list to a friend)
@@ -34,3 +35,5 @@
 - [Change the order of to-do items](https://snack.expo.dev/@nicksinai/react-native-draggable-flatlist-flow-solution)
 - [Share the to-do list to a friend](https://medium.com/@imtusharraj/taking-screen-viewshot-and-sharing-it-using-react-native-and-expo-sharing-deb3ccfe3dc3)
 - [Search for specific to-do items with a keyword](https://snack.expo.dev/embedded/@aboutreact/example-of-search-bar-in-react-native?iframeId=ewbug1wk1e&preview=true&platform=ios&theme=dark)
+- [using Map](https://dev-yakuza.posstree.com/ko/react-native/react-native-maps/)
+- [Pick image from gallery](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
