@@ -1,6 +1,9 @@
-# todo-App
-![image](https://user-images.githubusercontent.com/68195241/146725257-f1abf148-b9a8-46a6-92ce-02f18e187efb.png)
+# Random Todo
+- Android Todo List Application with randomly recommended tasks
+- https://expo.dev/@gmkim/random-todo
 
+
+#
 
 
 ## Team
