@@ -1,5 +1,6 @@
 # todo-App
-![image](https://user-images.githubusercontent.com/68195241/146722309-2c2e9a5d-d807-497c-baa1-1328325c3403.png)
+![image](https://user-images.githubusercontent.com/68195241/146725257-f1abf148-b9a8-46a6-92ce-02f18e187efb.png)
+
 
 
 ## Team
