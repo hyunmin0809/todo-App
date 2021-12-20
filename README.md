@@ -23,3 +23,8 @@
 - @react-native-community/datetimepicker
 - react-native-maps (use google api)
 - expo-image-picker
+- @react-navigation/drawer
+- @react-navigation/stack
+- react-native-gesture-handler
+- react-native-reanimated
+- react-native-safe-area-context
