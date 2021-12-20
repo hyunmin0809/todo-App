@@ -32,10 +32,6 @@ export default class ArchiveFloatingButton extends React.Component {
       });
     }
   };
-
-  gotoArchiveScreen(){
-    this.props.navigation.navigate('Report');
-  }
   
   render() {
     return (
@@ -48,7 +44,7 @@ export default class ArchiveFloatingButton extends React.Component {
               borderColor: this.state.borderColor,
             }]
           }
-          onPress={this.props.onPress/*() => [this.changeColor()]*/ }
+          onPress={() => {this.props.onPress; this.changeColor()}}
         >
           <Animated.View>  
             <AntDesign name="inbox" size={28} color={this.state.iconColor} />
