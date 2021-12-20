@@ -19,8 +19,7 @@
 ## References
 - @react-navigation/native
 - @expo/vector-icons
-
--@react-native-async-storage/async-storage
--@react-native-community/datetimepicker
--react-native-maps (use google api)
--expo-image-picker
+- @react-native-async-storage/async-storage
+- @react-native-community/datetimepicker
+- react-native-maps (use google api)
+- expo-image-picker
