@@ -26,7 +26,7 @@
 - react-native-draggable-flatlist (Change the order of to-do items)
 - react-native-elements (Search for specific to-do items with a keyword)
 - react-native-view-shot (Caputre image for Sharing the to-do list to a friend)
-- expo-sharing(Sharing the captured to-do list image to a friend)
+- expo-sharing (Sharing the captured to-do list image to a friend)
 
 ## References
 - [Generating random quotes for special feature](https://github.com/Sagarika00/Quotes-App.git)
