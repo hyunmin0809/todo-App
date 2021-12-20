@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, TouchableHighlight } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import * as Progress from 'react-native-progress';
 // import { ProgressBar, Colors } from "react-native-paper";
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
 // import {ProgressBar} from '@react-native-community/progress-bar-android';
 import moment from 'moment';
 import { theme } from '../theme';
+// import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 const Report = () => {
@@ -68,16 +68,29 @@ const Report = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textStyles}>Total Completion Rate {totalPercentTask}% </Text>
-      <Text style={styles.textStyles}>Daily Completion Rate {dayPercentTask}% </Text>
+      <View style={[styles.box, {backgroundColor:theme.lightgreen, borderColor:theme.white}]}>
+        <Text style={[styles.textStyles,{borderBottomColor:theme.deepGray, color:theme.black}]}>Total Completion Rate</Text>
+        <View>
+          <Text style={[styles.rateStyles,{color:'black', marginBottom: 0}]}>{totalPercentTask}%</Text>
+        </View>
+      </View>
+      <View style={[styles.box, {backgroundColor:theme.white}]}>
+        <Text style={styles.textStyles}>Daily Completion Rate</Text> 
+        <View style={styles.line}>
+          <Text style={styles.rateStyles}>{dayPercentTask}%</Text>
+        </View>
+        <Text style={styles.textStyles}>Weekly Completion Rate</Text> 
+        <Text style={styles.rateStyles}>{weekPercentTask}%</Text>
+        <Text style={styles.textStyles}>Monthly Completion Rate</Text>
+        <Text style={[styles.rateStyles, {marginBottom: 0}]}>{monthPercentTask}%</Text>
+      </View>
       {/* <ProgressBar
-        progress = {dayPercentTask/100}
+        progress = {dayPercentTask}
         width = {300}
         height = {30}
         color = {theme.ewhagreen}
         unfilledcolor = {theme.midGray}
       /> */}
-      <Text style={styles.textStyles}>Weekly Completion Rate {weekPercentTask}% </Text>
       {/* <Progress.Bar
         progress = {weekPercentTask/100}
         width = {300}
@@ -85,7 +98,6 @@ const Report = () => {
         color = {theme.ewhagreen}
         unfilledcolor = {theme.midGray}
       /> */}
-      <Text style={styles.textStyles}>Monthly Completion Rate {monthPercentTask}% </Text>
       {/* <Progress.Bar
         progress = {monthPercentTask/100}
         width = {300}
@@ -109,12 +121,38 @@ const styles = StyleSheet.create({
     backgroundColor: theme.white,
     alignContent:'center', 
     justifyContent: 'center',
-    padding:30,
+    padding:10,
   },
   textStyles: {
     fontSize: 25,
     padding: 0,
-  }
+    fontWeight: "bold",
+    color: theme.deepGray,
+    borderBottomColor: theme.lightGray,
+    borderBottomWidth: 3,
+  },
+  rateStyles: {
+    left: 220,
+    color: theme.ewhagreen,
+    fontSize: 40,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  box: {
+    borderColor: theme.lightGray,
+    borderWidth: 1,
+    padding: 20,
+    margin: 10,
+    borderRadius: 10,
+    shadowColor: theme.black,
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    shadowOpacity: 1,
+    shadowRadius: 0.5,
+    elevation: 2
+  },
 });
 
 export default Report;
