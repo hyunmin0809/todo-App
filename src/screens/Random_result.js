@@ -69,7 +69,7 @@ export default class RoundButton extends Component{
                 </View>
                 <View style={{flex: 1, flexDirection: 'row', top: 30}}>
                     <TouchableOpacity style={buttonStyles.button} onPress={() => this.props.navigation.navigate('AddTodoItemScreen', {random: todo})}>
-                        <Text style={buttonStyles.title}>ADD TO MY TO-DO LIST</Text>
+                        <Text style={buttonStyles.title}>ADD TO MY TODO LIST</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={buttonStyles.button2} onPress={this.getNew}>
                         <Text style={buttonStyles.title}>RETRY</Text>

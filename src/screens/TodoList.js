@@ -34,7 +34,6 @@ function TodoList({navigation}) {
   let sorted = Object.values(taskInfo).filter(task => task.duedate.slice(0,-4) >= today);/*오늘 이후의 item만 여기에 있음.*/
 
   useEffect(() => {
-    console.log(taskInfo)
     if (isFocused) {
         const firstLoad = async () => {
             const loadedTasks = await AsyncStorage.getItem('tasks');
@@ -239,7 +238,7 @@ const DueDate= () => {
         listview = Object.values(listview).filter(task => task.completed === true );
       }
       if(taskview === 'incompleted'){
-        listview = Object.values(sorted).filter(task => task.completed === false );
+        listview = Object.values(listview).filter(task => task.completed === false );
       }
       else if(taskview === 'searched'){
         listview = Object.values(searchItem);

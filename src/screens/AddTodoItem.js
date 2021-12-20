@@ -80,13 +80,18 @@ function Addtodo({route, navigation}){
     };
 
     function PressSubmit() {
-        const ID = Date.now().toString();
-        const newTaskObject = {
-            [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, latitude:location.latitude, longitude:location.longitude ,completed: false },
-        };
-        _saveTasks({...tasks, ...newTaskObject});
-        setLoading(true);
-        navigation.navigate('TodoListScreen');
+        if(task.length === 0){
+            alert('you should type your task name')
+        }
+        else{
+            const ID = Date.now().toString();
+            const newTaskObject = {
+                [ID]: { id: ID, task: task, duedate: duedate, duetime: duetime, category: category, comment: comment, picture: picture, latitude:location.latitude, longitude:location.longitude ,completed: false },
+            };
+            _saveTasks({...tasks, ...newTaskObject});
+            setLoading(true);
+            navigation.navigate('TodoListScreen');
+        }
     }
 
 
