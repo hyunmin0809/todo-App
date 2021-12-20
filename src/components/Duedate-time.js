@@ -120,7 +120,7 @@ export const Category = ({data, getData}) => {
                     columnWrapperStyle={{marginBottom: 5}}
                     renderItem={({item}) => <CategoryItem text={item.categoryItem.toString()}/>}
                 />
-                  <Pressable 
+                {/*<Pressable 
                     style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
                     onPressOut={()=>setModalVisible(true)}    
                 >
@@ -130,7 +130,7 @@ export const Category = ({data, getData}) => {
                     visible={modalVisible} 
                     onClose={() => setModalVisible(false)}
                     onSubmit={handleOnSubmit}
-                />
+                />*/}
             </View>
         </View>
       
