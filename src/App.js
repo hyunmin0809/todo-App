@@ -54,6 +54,7 @@ const App = () => {
                 drawerContent={props => <DrawerContent {...props}/>}
                 screenOptions={{
                     headerStyle: {
+                        height: 80,
                     },
                     headerTitleStyle: {
                         fontSize: 30,
@@ -64,6 +65,7 @@ const App = () => {
                 }} 
             >
                 <Drawer.Screen name="To-do List" component={TodoListStackScreen} />
+                <Drawer.Screen name="Category" component={CategoryScreen} />
                 <Drawer.Screen name="Report" component={ReportScreen} />
                 <Drawer.Screen name="Random" component={RandomStackScreen} />
             </Drawer.Navigator>

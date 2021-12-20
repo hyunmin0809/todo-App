@@ -5,7 +5,7 @@ import { theme } from '../../theme';
 
 const CategoryInputModal = ({visible, onClose, onSubmit}) => {
     const [categoryItem, setCategoryItem] = useState('');
-    
+
     const handleOnChangeText = (text) => {
         setCategoryItem(text);
     };
