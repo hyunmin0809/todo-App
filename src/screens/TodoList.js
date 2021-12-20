@@ -238,7 +238,7 @@ const DueDate= () => {
         listview = Object.values(listview).filter(task => task.completed === true );
       }
       if(taskview === 'incompleted'){
-        listview = Object.values(sorted).filter(task => task.completed === false );
+        listview = Object.values(listview).filter(task => task.completed === false );
       }
       else if(taskview === 'searched'){
         listview = Object.values(searchItem);
