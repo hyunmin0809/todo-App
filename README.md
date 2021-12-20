@@ -1,4 +1,4 @@
-# Random Todo
+# Random TODO
 - Android Todo List Application with randomly recommended tasks
 - https://expo.dev/@gmkim/random-todo
 
