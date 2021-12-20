@@ -75,15 +75,25 @@ export const Duedate_time = ({data1, getData1, data2, getData2 }) => {
 
 export const Category = ({data, getData}) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const [categoryList, setCategoryList] = useState([
-        {"id":0,"categoryItem":"study"},
-        {"id":1,"categoryItem":"anniversary"},
-        {"id":2,"categoryItem":"hobby"},
-        {"id":3,"categoryItem":"etc"},
-    ]);
-    
-   
+    const [categoryList, setCategoryList] = useState([]);
+    const [loaded, setLoaded] = useState({});
+    const findCategoryList = async () => {
+        const categoryResult = await AsyncStorage.getItem('categoryList');
 
+        if(categoryResult !== null) setCategoryList(JSON.parse(categoryResult));
+    };
+
+
+    useEffect(() => {
+        findCategoryList();
+    }, []);
+
+    const handleOnSubmit = async (categoryItem) => {
+        const categoryName = {id: Date.now(), categoryItem};
+        const updatedCategoryList = [...categoryList, categoryName];
+        setCategoryList(updatedCategoryList)
+        await AsyncStorage.setItem('categoryList', JSON.stringify(updatedCategoryList));
+    }
 
     const CategoryItem = ({text}) => {
         return (
@@ -109,6 +119,17 @@ export const Category = ({data, getData}) => {
                     columnWrapperStyle={{marginBottom: 5}}
                     renderItem={({item}) => <CategoryItem text={item.categoryItem.toString()}/>}
                 />
+                {/* <Pressable 
+                    style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
+                    onPressOut={()=>setModalVisible(true)}    
+                >
+                    <Text style = {{margin:3}}>+</Text>
+                </Pressable> */}
+                {/* <CategoryInputModal 
+                    visible={modalVisible} 
+                    onClose={() => setModalVisible(false)}
+                    onSubmit={handleOnSubmit}
+                /> */}
             </View>
         </View>
       

@@ -6,7 +6,7 @@ import { theme } from '../../theme';
 import { NavigationEvents } from "react-navigation";
 
 export default function CategoryItemButton ({ item, onPress }) {
-    
+
     const [modalOpen, setModalOpen] = useState(false);
     const {categoryItem} = item;
 
@@ -80,7 +80,3 @@ const styles = StyleSheet.create({
         bottom: 15,
     }
 });
-
-const menuModalStyles = StyleSheet.create({
-
-})
