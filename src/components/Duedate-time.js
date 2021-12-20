@@ -77,6 +77,7 @@ export const Category = ({data, getData}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
     const [loaded, setLoaded] = useState({});
+
     const findCategoryList = async () => {
         const categoryResult = await AsyncStorage.getItem('categoryList');
 
@@ -119,12 +120,12 @@ export const Category = ({data, getData}) => {
                     columnWrapperStyle={{marginBottom: 5}}
                     renderItem={({item}) => <CategoryItem text={item.categoryItem.toString()}/>}
                 />
-                <Pressable 
+                  <Pressable 
                     style = {[viewStyles.button, {height: 30, width: 30, borderRadius: 5}]}
                     onPressOut={()=>setModalVisible(true)}    
                 >
                     <Text style = {{margin:3}}>+</Text>
-                </Pressable> 
+                </Pressable>
                 <CategoryInputModal 
                     visible={modalVisible} 
                     onClose={() => setModalVisible(false)}
