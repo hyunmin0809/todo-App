@@ -39,4 +39,4 @@
 - [Pick image from gallery](https://docs.expo.dev/versions/latest/sdk/imagepicker/)
 
 ## Presentation
-https://drive.google.com/file/d/14MvzCSiJUiL5ulszlsfQStUqaN3_PI0W/view?usp=sharing
+https://drive.google.com/drive/folders/1vrEnYjlfRtLfOxLIrXMIoiX4FlQMhtFP?usp=drive_link
